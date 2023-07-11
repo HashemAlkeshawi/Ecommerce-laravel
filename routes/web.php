@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/d_user/delete','App\Http\Controllers\DUserController@destroy');
+Route::resource('d_user', DUserController::class);
+
