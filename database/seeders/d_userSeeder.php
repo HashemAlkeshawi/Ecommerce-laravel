@@ -16,9 +16,9 @@ class d_userSeeder extends Seeder
         echo 'run seeder';
 
 
-        //    $f_users = d_user::factory()->count(100)->make();
+        // $users = d_user::factory()->count(5)->make();
 
-        // foreach($f_users as $user){
+        // foreach($users as $user){
         //     echo 'in seeding';
         //     $user->save();
         // }
