@@ -31,7 +31,7 @@ class d_userFactory extends Factory
             'email' => fake()->safeEmail(),
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
-            'password' => fake()->password()
+            'password' => fake()->password(12,20)
 
         ];
     }

@@ -10,17 +10,17 @@
 
 
     <h2 class="well well-lg">All Users</h2>
+    @if($d_users)
     <ul class="list-group">
-        @if($d_users)
         @foreach($d_users as $d_user)
-      
+
         <li class="list-group-item  well"><span class="text-primary">email:</span> {{$d_user->email}}</li>
         <li class="list-group-item  well"><span class="text-primary">User Status 'Admin/User':</span> @if($d_user->is_admin ==1) Admin @else User @endif</li>
         <li class="list-group-item  well"><span class="text-primary">Account Status: </span>@if($d_user->is_active ==1) <span class="text-success">Active</span>@else <span class="text-danger">Inactive</span> @endif</li>
 
         <div class="row">
             <div class="col-1 m-2">
-              
+
             </div>
             <div class="col-1 m-2">
                 <form method="POST" action="{{URL('d_user/'. $d_user->id)}}">
@@ -39,8 +39,11 @@
         </div>
         <hr>
         @endforeach
-        @endif
     </ul>
- 
+    <div >
+    {{ $d_users->links('pagination::bootstrap-4') }}
+    </div>
+     @endif
+
 </div>
 @endsection
