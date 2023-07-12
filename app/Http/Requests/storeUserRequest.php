@@ -22,7 +22,7 @@ class storeUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-                /***
+            /***
                     username must be unique and more than 4 characters long
                     first_name : min 3, max 15
                     last_name: min 3, max 15
@@ -35,10 +35,8 @@ class storeUserRequest extends FormRequest
             'last_name' => 'required|min:3|max:15',
             'is_admin' => 'in:0,1',
             'is_active' => 'in:0,1',
-            'password' => ['required','min:8','regex:/^(?=.*[a-z])(?=.*[A-Z]).(?=.*[\W_]).{9,}$/']
-        
-        
-    
+            'password' => ['required', 'min:8', 'regex:/^(?=.*[a-z])(?=.*[A-Z]).(?=.*[\W_]).{9,}$/'],
+            'check_password' => 'required|same:password'
         ];
     }
 }

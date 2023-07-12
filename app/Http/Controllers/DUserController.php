@@ -16,7 +16,7 @@ class DUserController extends Controller
     public function index()
     {
         //
-        $d_user = d_user::paginate(4);
+        $d_user = d_user::OrderBy('id', 'desc')->paginate(4);
         return view('d_user.index')->with('d_users',$d_user );
     }
 

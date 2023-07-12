@@ -9,7 +9,7 @@
     </div>
 
 
-    <h2 class="well well-lg">All trucks</h2>
+    <h2 class="well well-lg">All Users</h2>
     <ul class="list-group">
         @if($d_users)
         @foreach($d_users as $d_user)
