@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -31,7 +33,7 @@ class d_userFactory extends Factory
             'email' => fake()->safeEmail(),
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
-            'password' => fake()->password(12,20)
+            'password' => Hash::make(fake()->password(12, 20))
 
         ];
     }

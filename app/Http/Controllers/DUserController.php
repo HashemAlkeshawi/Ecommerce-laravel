@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\storeUserRequest;
 use App\Http\Requests\updateUserRequest;
 use App\Models\d_user;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class DUserController extends Controller
 {
@@ -54,7 +53,7 @@ class DUserController extends Controller
         $d_user->first_name = $request['first_name'];
         $d_user->last_name = $request['last_name'];
         $d_user->is_admin = $request['is_admin'] == '1' ? 1 : 0;
-        $d_user->password = $request['password'];
+        $d_user->password =  Hash::make($request['password']) ;
 
         $d_user->save();
         return redirect('/d_user');
