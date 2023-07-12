@@ -10,6 +10,7 @@
 
 
     <h2 class="well well-lg">All Users</h2>
+    <h2 class="well well-lg">{{$profile->id}}</h2>
     @if($d_users)
     <ul class="list-group">
         @foreach($d_users as $d_user)

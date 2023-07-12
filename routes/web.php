@@ -17,7 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/home', function () {
+    return view('home');
+})->middleware('auth');
 
-Route::get('/d_user/delete','App\Http\Controllers\DUserController@destroy');
-Route::resource('d_user', DUserController::class);
-
+Route::get('/d_user/login', 'App\Http\Controllers\LoginController@login')->name('login');
+Route::post('/d_user/authenticate', 'App\Http\Controllers\LoginController@do');
+Route::get('/d_user/register','App\Http\Controllers\DUserController@create' );
+Route::resource('d_user', DUserController::class)->except(['create'])->middleware('auth');

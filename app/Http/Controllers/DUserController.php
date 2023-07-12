@@ -6,6 +6,7 @@ use App\Http\Requests\storeUserRequest;
 use App\Http\Requests\updateUserRequest;
 use App\Models\d_user;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class DUserController extends Controller
 {
@@ -15,8 +16,9 @@ class DUserController extends Controller
     public function index()
     {
         //
+
         $d_user = d_user::OrderBy('id', 'desc')->paginate(4);
-        return view('d_user.index')->with('d_users',$d_user );
+        return view('d_user.index')->with('d_users', $d_user)->with('profile', Auth::user());
     }
 
     /**
@@ -53,9 +55,12 @@ class DUserController extends Controller
         $d_user->first_name = $request['first_name'];
         $d_user->last_name = $request['last_name'];
         $d_user->is_admin = $request['is_admin'] == '1' ? 1 : 0;
-        $d_user->password =  Hash::make($request['password']) ;
+        $d_user->password =  Hash::make($request['password']);
 
         $d_user->save();
+
+        Auth::login($d_user);
+
         return redirect('/d_user');
     }
 
@@ -118,7 +123,7 @@ class DUserController extends Controller
     public function destroy(d_user $d_user)
     {
         // $user = d_user::firstWhere('id', $d_user->id);
-$d_user->delete();
+        $d_user->delete();
 
         // $user->destroy();
         return redirect('/d_user');
