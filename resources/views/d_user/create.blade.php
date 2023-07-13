@@ -49,6 +49,15 @@
                 <label class="form-label">Last name</label>
                 <input class="form-control" type="text" name="last_name" id="last_name">
             </div>
+            @if(Auth::check())
+            <br>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="1" id="is_admin" name="is_admin" >
+                <label class="form-check-label" for="is_admin">
+                    Set As Admin?
+                </label>
+            </div>
+            @endif
             <br><br>
             <button class="btn btn-primary" type="submit">@if(Auth::check())Add new User @else Sign Up @endif</button>
             @if(!Auth::check())
