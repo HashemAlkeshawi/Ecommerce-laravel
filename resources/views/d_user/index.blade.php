@@ -9,8 +9,9 @@
     </div>
 
 
-    <h2 class="well well-lg">All Users</h2>
-    <h2 class="well well-lg">{{$profile->id}}</h2>
+    <h3 class="well well-lg">All Users</h3><br>
+    <h6 class="well well-lg">Loged in user id: {{$profile->id}}</h6>
+    <h6 class="well well-lg">Loged in username: {{$profile->username}}</h6><br>
     @if($d_users)
     <ul class="list-group">
         @foreach($d_users as $d_user)
@@ -39,10 +40,10 @@
         <hr>
         @endforeach
     </ul>
-    <div >
-    {{ $d_users->links('pagination::bootstrap-4') }}
+    <div>
+        {{ $d_users->links('pagination::bootstrap-4') }}
     </div>
-     @endif
+    @endif
 
 </div>
 @endsection

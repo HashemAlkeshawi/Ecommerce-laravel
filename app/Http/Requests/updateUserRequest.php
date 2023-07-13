@@ -35,7 +35,6 @@ class updateUserRequest extends FormRequest
         'last_name' => 'required|min:3|max:15',
         'is_admin' => 'in:0,1',
         'is_active' => 'in:0,1',
-        'password' => ['required','min:8','regex:/^(?=.*[a-z])(?=.*[A-Z]).(?=.*[\W_]).{9,}$/']
     
     
 

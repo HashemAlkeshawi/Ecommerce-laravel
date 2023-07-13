@@ -10,32 +10,22 @@ use Illuminate\Support\Facades\Auth;
 
 class DUserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        //
-
-        $d_user = d_user::OrderBy('id', 'desc')->paginate(4);
+        $d_user = d_user::OrderBy('id', 'desc')->where('is_admin', "!=", 1)->paginate(4);
         return view('d_user.index')->with('d_users', $d_user)->with('profile', Auth::user());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        //
         return view('d_user.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(storeUserRequest $request)
     {
-        //
         $validated = $request->validated();
         // dd($request);
         // dd($validated);
@@ -59,34 +49,25 @@ class DUserController extends Controller
 
         $d_user->save();
 
-        Auth::login($d_user);
+        if (Auth::user()->is_admin != 1) {
+            Auth::login($d_user);
+        }
 
         return redirect('/d_user');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(d_user $d_user)
     {
-        //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(d_user $d_user)
     {
-        //
         return view('d_user.edit')->with('d_user', $d_user);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(updateUserRequest $request, d_user $d_user)
     {
-        //
         $validated = $request->validated();
         // dd($request);
         // dd($validated);
@@ -101,31 +82,28 @@ class DUserController extends Controller
          */
         // dd($request['username']);
 
-        $d_user->update([
-            'username' => $request['username'],
-            'email' => $request['email'],
-            'first_name' => $request['first_name'],
-            'last_name' => $request['last_name'],
-            'is_admin' => $request['is_admin'],
-            'password' => $request['password'],
-            'is_active' => $request['is_active'] == '1' ? 0 : 1,
-            'is_admin' => $request['is_admin'] == '1' ? 1 : 0
+        $d_user->update(
+            [
+                'username' => $request['username'],
+                'email' => $request['email'],
+                'first_name' => $request['first_name'],
+                'last_name' => $request['last_name'],
+                'is_admin' => $request['is_admin'],
+                'is_active' => $request['is_active'] == '1' ? 0 : 1,
+                'is_admin' => $request['is_admin'] == '1' ? 1 : 0
 
-        ]);
+            ]
+        );
 
 
         return redirect('/d_user');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(d_user $d_user)
     {
-        // $user = d_user::firstWhere('id', $d_user->id);
         $d_user->delete();
 
-        // $user->destroy();
         return redirect('/d_user');
     }
 }

@@ -15,15 +15,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect('/d_user');
-})->middleware('auth');
+    return redirect('/d_user/dashboard');
+});
 
 Route::get('/home', function () {
-    return redirect('/d_user');
-})->middleware('auth');
+    return redirect('/d_user/dashboard');
+});
 
-Route::get('d_user/login', 'App\Http\Controllers\LoginController@login')->name('login');
+Route::get('d_user/login', 'App\Http\Controllers\LoginController@login')->middleware('check_autherized')->name('login');
 Route::post('d_user/authenticate', 'App\Http\Controllers\LoginController@authenticate');
-Route::get('d_user/register', 'App\Http\Controllers\DUserController@create');
+Route::get('d_user/register', 'App\Http\Controllers\DUserController@create')->middleware('check_autherized');
+Route::get('d_user/logout', 'App\Http\Controllers\LoginController@logout');
+
 Route::post('d_user/', 'App\Http\Controllers\DUserController@store');
-Route::resource('d_user', DUserController::class)->except(['create', 'store'])->middleware('auth');
+Route::get('d_user/dashboard', 'App\Http\Controllers\AdminFunctionsController@index')->middleware('auth');
+Route::resource('d_user', DUserController::class)->except(['create', 'store'])->middleware(['auth','check_role']);

@@ -18,7 +18,7 @@ class LoginController extends Controller
         if ($authenticated) {
             $request->session()->regenerate();
 
-            return redirect('/home');
+            return redirect('/home')->with('user', Auth::user());
         }
 
         return back()->withErrors([
@@ -43,5 +43,17 @@ class LoginController extends Controller
     // Login view
     public function login()  {
         return view('auth.login')   ;     
+    }
+
+    // Log out 
+    public function logout(Request $request)
+    {
+        Auth::logout();
+     
+        $request->session()->invalidate();
+        
+        $request->session()->regenerateToken();
+     
+        return redirect('/');
     }
 }
