@@ -2,6 +2,8 @@
 @section('title')
 <title>Add new d_user</title>
 @endsection
+@include('components\navBar')
+
 @section('content')
 
 <div style="margin-top: 100;" class="container">
@@ -48,8 +50,10 @@
                 <input class="form-control" type="text" name="last_name" id="last_name">
             </div>
             <br><br>
-            <button class="btn btn-primary" type="submit">Sign Up</button>
-            <a href="{{URL('/d_user/')}}"> <span class="btn btn-primary" >Have an account? -- Login</span></a>
+            <button class="btn btn-primary" type="submit">@if(Auth::check())Add new User @else Sign Up @endif</button>
+            @if(!Auth::check())
+            <a href="{{URL('/d_user/')}}"> <span class="btn btn-primary">Have an account? -- Login</span></a>
+            @endif
 
         </form>
     </div>

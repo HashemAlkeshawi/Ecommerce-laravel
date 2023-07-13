@@ -17,9 +17,10 @@ class CheckAutheraizedUser
     public function handle(Request $request, Closure $next): Response
     {
         // dd($next);
-        if (Auth::check())
-        // dd(Auth::user());
-            return redirect('/')->with('error', 'You are already logged in!');
-        return $next($request);
+        // dd($request->route()->getActionMethod());
+        if (!Auth::check() || (Auth::user()->is_admin == 1 && $request->route()->getActionMethod() == "create"))
+            return $next($request);
+
+        return redirect('/')->with('error', 'You are already logged in!');
     }
 }

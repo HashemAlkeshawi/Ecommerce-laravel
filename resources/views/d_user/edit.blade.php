@@ -2,6 +2,9 @@
 @section('title')
 <title>Edit d_user</title>
 @endsection
+@section('navbar')
+@include('components\navBar')
+@endsection
 @section('content')
 
 <div style="margin-top: 100;" class="container">

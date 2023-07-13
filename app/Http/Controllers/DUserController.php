@@ -14,7 +14,7 @@ class DUserController extends Controller
     public function index()
     {
         $d_user = d_user::OrderBy('id', 'desc')->where('is_admin', "!=", 1)->paginate(4);
-        return view('d_user.index')->with('d_users', $d_user)->with('profile', Auth::user());
+        return view('d_user.index')->with('d_users', $d_user);
     }
 
 
@@ -49,7 +49,7 @@ class DUserController extends Controller
 
         $d_user->save();
 
-        if (Auth::user()->is_admin != 1) {
+        if (Auth::check() && Auth::user()->is_admin != 1) {
             Auth::login($d_user);
         }
 

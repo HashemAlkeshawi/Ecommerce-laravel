@@ -24,7 +24,7 @@ Route::get('/home', function () {
 
 Route::get('d_user/login', 'App\Http\Controllers\LoginController@login')->middleware('check_autherized')->name('login');
 Route::post('d_user/authenticate', 'App\Http\Controllers\LoginController@authenticate');
-Route::get('d_user/register', 'App\Http\Controllers\DUserController@create')->middleware('check_autherized');
+Route::get('d_user/create', 'App\Http\Controllers\DUserController@create')->middleware('check_autherized');
 Route::get('d_user/logout', 'App\Http\Controllers\LoginController@logout');
 
 Route::post('d_user/', 'App\Http\Controllers\DUserController@store');

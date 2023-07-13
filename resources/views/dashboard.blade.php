@@ -2,6 +2,6 @@
 @section('title')
 <title>Dashboard</title>
 @endsection
-@section('content')
+@section('navbar')
 @include('components\navBar')
 @endsection

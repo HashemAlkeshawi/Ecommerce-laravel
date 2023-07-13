@@ -2,6 +2,9 @@
 @section('title')
 <title>Add new d_user</title>
 @endsection
+@section('navbar')
+@include('components\navBar')
+@endsection
 @section('content')
 
 <div style="margin-top: 100;" class="container">
@@ -35,7 +38,7 @@
 
             <br><br>
             <button class="btn btn-primary" type="submit">Log In</button>
-            <a href="{{URL('/d_user/register')}}"> <span class="btn btn-primary" >Sign Up</span></a>
+            <a href="{{URL('/d_user/create')}}"> <span class="btn btn-primary" >Sign Up</span></a>
         </form>
     </div>
 </div>
