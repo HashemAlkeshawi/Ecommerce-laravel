@@ -18,7 +18,7 @@
         <div class="page-header">
             <h1 class="header">Add New d_user</h1>
         </div>
-        <form method="POST" action="{{URL('d_user/')}}">
+        <form method="POST" action="{{URL('/d_user')}}">
             @csrf
             <div class="form-group">
                 <label class="form-label">Username</label>
@@ -47,17 +47,10 @@
                 <label class="form-label">Last name</label>
                 <input class="form-control" type="text" name="last_name" id="last_name">
             </div>
-
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="is_admin" name="is_admin" value="1">
-                <label class="form-check-label">Admin</label>
-            </div>
-
-
-
-
             <br><br>
-            <button class="btn btn-primary" type="submit">Save</button>
+            <button class="btn btn-primary" type="submit">Sign Up</button>
+            <a href="{{URL('/d_user/')}}"> <span class="btn btn-primary" >Have an account? -- Login</span></a>
+
         </form>
     </div>
 </div>

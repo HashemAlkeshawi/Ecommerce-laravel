@@ -35,6 +35,7 @@
 
             <br><br>
             <button class="btn btn-primary" type="submit">Log In</button>
+            <a href="{{URL('/d_user/register')}}"> <span class="btn btn-primary" >Sign Up</span></a>
         </form>
     </div>
 </div>

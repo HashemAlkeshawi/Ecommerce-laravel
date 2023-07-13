@@ -8,7 +8,7 @@ use App\Http\Requests\AuthenticationRequest;
 
 class LoginController extends Controller
 {
-    public function do(AuthenticationRequest $request)
+    public function authenticate(AuthenticationRequest $request)
     {
         $validated = $request->validated();
         $authenticated = Auth::attempt([

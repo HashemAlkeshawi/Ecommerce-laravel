@@ -15,13 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/home', function () {
-    return view('home');
+    return redirect('/d_user');
 })->middleware('auth');
 
-Route::get('/d_user/login', 'App\Http\Controllers\LoginController@login')->name('login');
-Route::post('/d_user/authenticate', 'App\Http\Controllers\LoginController@do');
-Route::get('/d_user/register','App\Http\Controllers\DUserController@create' );
-Route::resource('d_user', DUserController::class)->except(['create'])->middleware('auth');
+Route::get('/home', function () {
+    return redirect('/d_user');
+})->middleware('auth');
+
+Route::get('d_user/login', 'App\Http\Controllers\LoginController@login')->name('login');
+Route::post('d_user/authenticate', 'App\Http\Controllers\LoginController@authenticate');
+Route::get('d_user/register', 'App\Http\Controllers\DUserController@create');
+Route::post('d_user/', 'App\Http\Controllers\DUserController@store');
+Route::resource('d_user', DUserController::class)->except(['create', 'store'])->middleware('auth');

@@ -24,16 +24,14 @@
 
             </div>
             <div class="col-1 m-2">
-                <form method="POST" action="{{URL('d_user/'. $d_user->id)}}">
+                <form method="POST" action="{{URL('d_user/'.$d_user->id)}}">
                     @csrf
                     @method('DELETE')
-                    <input name="d_user_id" type="hidden" value="{{$d_user->id}}">
                     <button class="btn btn-danger" name="Delete" type="submit">Delete</button>
                 </form>
-                <form method="GET" action="{{URL('d_user/'. $d_user->id .'/edit')}}">
+                <form method="GET" action="{{URL('d_user/'.$d_user->id .'/edit')}}">
                     @csrf
-                    <input name="d_user_id" type="hidden" value="{{$d_user->id}}">
-                    <button class="btn btn-primary" name="Delete" type="submit">Edit</button>
+                    <button class="btn btn-primary" name="edit" type="submit">Edit</button>
                 </form>
 
             </div>
