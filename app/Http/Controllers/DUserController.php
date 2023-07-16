@@ -15,7 +15,8 @@ class DUserController extends Controller
     public function index()
     {
 
-        $d_users = d_user::OrderBy('id', 'desc')->where('is_admin', "!=", 1)->paginate(4);
+        // $d_users = d_user::OrderBy('id', 'desc')->where('is_admin', "!=", 1)->paginate(4);
+        $d_users = d_user::paginate(4);
         
         return view('d_user.index')->with('d_users', $d_users);
     }
@@ -93,7 +94,7 @@ class DUserController extends Controller
                 'last_name' => $request['last_name'],
                 'is_admin' => $request['is_admin'],
                 'is_active' => $request['is_active'] == '1' ? 0 : 1,
-                'is_admin' => $request['is_admin'] == '1' ? 1 : 0
+                'is_admin' => $d_user->is_admin,
 
             ]
         );

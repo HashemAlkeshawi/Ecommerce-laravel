@@ -13,10 +13,11 @@ class FiltersController extends Controller
     {
 
         $query = d_user::query();
+        if($request->active ==1) $query->where('is_active', 1);
+        if($request->admin ==1) $query->where('is_admin', 1);
         switch ($request->filter_by) {
             case "email":
                 $query->where('email', 'like',  '%' . $request->email . '%');
-                // dd($query->paginate(4));
 
                 break;
             case "username":
@@ -28,12 +29,8 @@ class FiltersController extends Controller
 
                 break;
         }
-
-        // if ($request['username']) {
         $d_users = $query->paginate(4);
-        return view('d_user.index')->with('d_users', $d_users);
-        // }   
-        //  return view('d_user.index');
+        return view('d_user.index')->with('d_users', $d_users)->with('filters', $request);
 
     }
 }

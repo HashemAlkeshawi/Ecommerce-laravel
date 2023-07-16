@@ -24,32 +24,32 @@
         <div class="row">
             <ul class="list-group list-group-horizontal">
                 <li class="list-group-item">
-                    <input class="form-check-input" name="filter_by" type="radio" id="filter_by1" value="email">
+                    <input class="form-check-input" name="filter_by" type="radio" id="filter_by1" value="email"  @if(@isset($filters) && $filters->filter_by == 'email') checked @endif>
                     <label for="filter_by1">Search by email</label>
-                    <input class="form-control" type="string" placeholder="email" name="email">
+                    <input class="form-control" type="string" placeholder="email" name="email"@if(@isset($filters) && $filters->filter_by == 'email') value="{{$filters->email}}" @endif>
                     
                 </li>
                 <li class="list-group-item">
-                    <input class="form-check-input" name="filter_by" type="radio" id="filter_by2" value="username">
+                    <input class="form-check-input" name="filter_by" type="radio" id="filter_by2" value="username" @if(@isset($filters) && $filters->filter_by == 'username') checked @endif>
                     <label for="filter_by2">Search by username</label>
-                    <input class="form-control" type="string" placeholder="username" name="username">
+                    <input class="form-control" type="string" placeholder="username" name="username"@if(@isset($filters) && $filters->filter_by == 'username') value="{{$filters->username}}" @endif>
 
                 </li>
                 <li class="list-group-item">
-                    <input class="form-check-input" name="filter_by" type="radio" id="filter_by3" value="name">
+                    <input class="form-check-input" name="filter_by" type="radio" id="filter_by3" value="name" @if(@isset($filters) && $filters->filter_by == 'name') checked @endif>
                     <label for="filter_by3">Search by name</label>
-                    <input class="form-control" type="string" placeholder="full name" name="name">
+                    <input class="form-control" type="string" placeholder="full name" name="name"  @if(@isset($filters) && $filters->filter_by == 'name') value="{{$filters->name}}" @endif>
                 </li>
           
             </ul>
         </div>
         <br>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="search_is_active" name="search_is_active" value="1">
+            <input class="form-check-input" type="checkbox" id="search_is_active" name="active" value="1" @if(@isset($filters) && $filters->active == '1')checked @endif>
             <label class="form-check-label">Active Users Only</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="search_is_admin" name="search_is_admin" value="1">
+            <input class="form-check-input" type="checkbox" id="search_is_admin" name="admin" value="1" @if(@isset($filters) && $filters->admin == '1 ')checked @endif>
             <label class="form-check-label">Admins Only</label>
         </div>
         <br>
