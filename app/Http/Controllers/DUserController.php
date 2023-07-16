@@ -49,8 +49,8 @@ class DUserController extends Controller
 
         $d_user->save();
 
-        if (Auth::check() && Auth::user()->is_admin != 1) {
-            Auth::login($d_user);
+        if (!Auth::check()) {
+            Auth::login($d_user, false);
         }
 
         return redirect('/d_user');
@@ -106,4 +106,5 @@ class DUserController extends Controller
 
         return redirect('/d_user');
     }
+
 }

@@ -34,6 +34,13 @@
                 <label>Password</label>
                 <input class="form-control" type="password" name="password" id="password">
             </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="1" id="remember_me" name="remember_me" >
+                <label class="form-check-label" for="remember_me">
+                Remember Me
+                </label>
+            </div>
  
 
             <br><br>
