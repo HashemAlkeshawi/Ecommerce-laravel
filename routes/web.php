@@ -28,5 +28,6 @@ Route::post('d_user/authenticate', 'App\Http\Controllers\LoginController@authent
 Route::get('d_user/create', 'App\Http\Controllers\DUserController@create')->middleware('check_autherized');
 Route::get('d_user/logout', 'App\Http\Controllers\LoginController@logout');
 
+Route::get('d_user/filterd_users', 'App\Http\Controllers\FiltersController@index')->middleware(['auth', 'check_role']);
 Route::post('d_user/', 'App\Http\Controllers\DUserController@store');
 Route::resource('d_user', DUserController::class)->except(['create', 'store'])->middleware(['auth','check_role']);

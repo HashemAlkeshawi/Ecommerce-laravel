@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FiltersRequest;
 use App\Http\Requests\storeUserRequest;
 use App\Http\Requests\updateUserRequest;
 use App\Models\d_user;
@@ -13,8 +14,10 @@ class DUserController extends Controller
 
     public function index()
     {
-        $d_user = d_user::OrderBy('id', 'desc')->where('is_admin', "!=", 1)->paginate(4);
-        return view('d_user.index')->with('d_users', $d_user);
+
+        $d_users = d_user::OrderBy('id', 'desc')->where('is_admin', "!=", 1)->paginate(4);
+        
+        return view('d_user.index')->with('d_users', $d_users);
     }
 
 

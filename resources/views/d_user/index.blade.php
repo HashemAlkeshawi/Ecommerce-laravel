@@ -10,12 +10,58 @@
     <div class="page-header">
         <h1 class="header">Home page</h1>
     </div>
+    <form method="GET" action="{{URL('/d_user/filterd_users')}}">
+        @csrf
+        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+        <div class="row">
+            <ul class="list-group list-group-horizontal">
+                <li class="list-group-item">
+                    <input class="form-check-input" name="filter_by" type="radio" id="filter_by1" value="email">
+                    <label for="filter_by1">Search by email</label>
+                    <input class="form-control" type="string" placeholder="email" name="email">
+                    
+                </li>
+                <li class="list-group-item">
+                    <input class="form-check-input" name="filter_by" type="radio" id="filter_by2" value="username">
+                    <label for="filter_by2">Search by username</label>
+                    <input class="form-control" type="string" placeholder="username" name="username">
 
+                </li>
+                <li class="list-group-item">
+                    <input class="form-check-input" name="filter_by" type="radio" id="filter_by3" value="name">
+                    <label for="filter_by3">Search by name</label>
+                    <input class="form-control" type="string" placeholder="full name" name="name">
+                </li>
+          
+            </ul>
+        </div>
+        <br>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="search_is_active" name="search_is_active" value="1">
+            <label class="form-check-label">Active Users Only</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="search_is_admin" name="search_is_admin" value="1">
+            <label class="form-check-label">Admins Only</label>
+        </div>
+        <br>
+        <button class="btn btn-primary" type="submit">Apply filters</button>
+        <a href="{{URL('d_user/')}}" class="btn btn-danger">Remove filters</a>
+        <br>
+        <br>
 
-    <h3 class="well well-lg">All Users</h3><br>
+    </form>
     <h6 class="well well-lg">Loged in user id: {{Auth::user()->id}}</h6>
     <h6 class="well well-lg">Loged in username: {{Auth::user()->username}}</h6><br>
-    @if($d_users)
+    @if(@isset($d_users) && ! $d_users->isEmpty())
     <ul class="list-group">
         @foreach($d_users as $d_user)
 
@@ -46,6 +92,11 @@
     <div>
         {{ $d_users->links('pagination::bootstrap-4') }}
     </div>
+    @else
+    <div class="alert alert-danger">
+       <p>No useres found!</p>
+    </div>
+
     @endif
 
 </div>
