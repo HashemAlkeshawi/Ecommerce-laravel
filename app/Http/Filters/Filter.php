@@ -9,12 +9,11 @@ abstract class Filter
 {
     public abstract function scopeFilter(Builder $query, String $queryParam);
 
-    public static function apply(Builder $query, FiltersRequest $request, array $filters): Builder
+    public static function apply(Builder $query, FiltersRequest $request, array $filters)
     {
         foreach ($filters as $filter) {
            
             $filter->scopeFilter($query, $request[class_basename($filter)]);
         }
-        return $query;
     }
 }

@@ -35,7 +35,7 @@ class FiltersController extends Controller
 
 
 
-        $query = Filter::apply($query, $request, $filters);
+        Filter::apply($query, $request, $filters);
 
 
         $d_users = $query->paginate(4);
