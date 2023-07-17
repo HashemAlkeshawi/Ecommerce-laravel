@@ -23,6 +23,7 @@ class FiltersRequest extends FormRequest
     {
         return [
             // 'search_username' => 'min:5',
+            'NameFilter' => 'nullable|string|min:3|regex:/\w+\s+\w+/',
             // 'search_first_name' => 'min:3|max:15',
             // 'search_last_name' => 'min:3|max:15',
             // 'search_is_admin' => 'in:0,1',
