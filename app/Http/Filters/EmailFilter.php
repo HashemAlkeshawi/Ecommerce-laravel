@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class EmailFilter extends Filter
 {
-    public function scopeFilter(Builder $query, $email)
+    public function filter(Builder $query, $email)
     {
         return $query->where('email', 'like',  '%' . $email . '%');
     }

@@ -19,26 +19,8 @@ class FiltersController extends Controller
     {
         $query = d_user::query();
 
-        $filters = [];
-        if ($request->input('EmailFilter')) {
-            array_push($filters, new EmailFilter());
-        }
-        if ($request->input('UsernameFilter')) {
-            array_push($filters, new UsernameFilter());
-        }
-        if ($request->input('NameFilter')) {
-            array_push($filters, new NameFilter());
-        }
+        $d_users =   d_user::Filter($query, $request)->paginate(10);
 
-        if ($request->ActivationFilter == 1)  array_push($filters, new  ActivationFilter());
-        if ($request->AdministrationFilter == 1) array_push($filters, new AdministrationFilter());
-
-
-
-        Filter::apply($query, $request, $filters);
-
-
-        $d_users = $query->paginate(4);
         return view('d_user.index')->with('d_users', $d_users)->with('filters', $request);
     }
 }

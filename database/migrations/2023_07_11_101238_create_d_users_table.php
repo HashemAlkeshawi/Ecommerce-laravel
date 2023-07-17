@@ -26,8 +26,8 @@ return new class extends Migration
             $table->string('email');
             $table->string('first_name', 20);
             $table->string('last_name', 20);
-            $table->binary('is_admin')->default(0);
-            $table->binary('is_active')->default(1);
+            $table->tinyInteger('is_admin')->default(0);
+            $table->tinyInteger('is_active')->default(1);
             $table->string('password');
             $table->timestamps();
         });

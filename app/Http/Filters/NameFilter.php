@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class NameFilter extends Filter
 {
-    public function scopeFilter(Builder $query, $name)
+    public function filter(Builder $query, $name)
     {
         $first_name = explode(' ', $name)[0];
         $last_name = explode(' ', $name)[1];

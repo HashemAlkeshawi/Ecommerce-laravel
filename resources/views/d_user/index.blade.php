@@ -13,31 +13,31 @@
     <form method="GET" action="{{URL('/d_user/filterd_users')}}">
         @csrf
         @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <div class="row">
             <ul class="list-group list-group-horizontal">
                 <li class="list-group-item">
                     <label for="filter_by1">Search by email</label>
-                    <input class="form-control" type="string" placeholder="email" name="EmailFilter"@if(@isset($filters)) value="{{$filters->EmailFilter}}" @endif>
-                    
+                    <input class="form-control" type="email" placeholder="email" name="EmailFilter" @if(@isset($filters)) value="{{$filters->EmailFilter}}" @endif>
+
                 </li>
                 <li class="list-group-item">
                     <label for="filter_by2">Search by username</label>
-                    <input class="form-control" type="string" placeholder="username" name="UsernameFilter"@if(@isset($filters)) value="{{$filters->UsernameFilter}}" @endif>
+                    <input class="form-control" type="string" placeholder="username" name="UsernameFilter" @if(@isset($filters)) value="{{$filters->UsernameFilter}}" @endif>
 
                 </li>
                 <li class="list-group-item">
                     <label for="filter_by3">Search by name</label>
-                    <input class="form-control" type="string" placeholder="full name" name="NameFilter"  @if(@isset($filters) ) value="{{$filters->NameFilter}}" @endif>
+                    <input class="form-control" type="string" placeholder="full name" name="NameFilter" @if(@isset($filters) ) value="{{$filters->NameFilter}}" @endif>
                 </li>
-          
+
             </ul>
         </div>
         <br>
@@ -66,21 +66,18 @@
         <li class="list-group-item  well"><span class="text-primary">User Status 'Admin/User':</span> @if($d_user->is_admin ==1) Admin @else User @endif</li>
         <li class="list-group-item  well"><span class="text-primary">Account Status: </span>@if($d_user->is_active ==1) <span class="text-success">Active</span>@else <span class="text-danger">Inactive</span> @endif</li>
 
-        <div class="row">
-            <div class="col-1 m-2">
 
+        <br>
+        <div class="row">
+            <div class="col-auto">
+                    <a href="{{URL('d_user/'.$d_user->id .'/edit')}}" class="btn btn-primary" name="edit" >Edit</a>
             </div>
-            <div class="col-1 m-2">
+            <div class="col-auto">
                 <form method="POST" action="{{URL('d_user/'.$d_user->id)}}">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger" name="Delete" type="submit">Delete</button>
                 </form>
-                <form method="GET" action="{{URL('d_user/'.$d_user->id .'/edit')}}">
-                    @csrf
-                    <button class="btn btn-primary" name="edit" type="submit">Edit</button>
-                </form>
-
             </div>
         </div>
         <hr>
@@ -91,7 +88,7 @@
     </div>
     @else
     <div class="alert alert-danger">
-       <p>No useres found!</p>
+        <p>No useres found!</p>
     </div>
 
     @endif
