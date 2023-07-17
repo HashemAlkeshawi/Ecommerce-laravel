@@ -16,7 +16,6 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // dd($next);
 
         if (!Auth::user()->is_admin == 1)
             return redirect('/')->with('error', 'You are not autherized to show useres');

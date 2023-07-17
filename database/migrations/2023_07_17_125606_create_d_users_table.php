@@ -29,6 +29,8 @@ return new class extends Migration
             $table->tinyInteger('is_admin')->default(0);
             $table->tinyInteger('is_active')->default(1);
             $table->string('password');
+            $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

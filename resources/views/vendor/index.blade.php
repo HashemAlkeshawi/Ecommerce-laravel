@@ -8,9 +8,9 @@
 @section('content')
 <div style="margin-top: 50;" class="container">
     <div class="page-header">
-        <h1 class="header">All Users</h1>
+        <h1 class="header">All Vendors</h1>
     </div>
-    <form method="GET" action="{{URL('/d_user')}}">
+    <form method="GET" action="{{URL('/vendor/')}}">
         @csrf
         @if ($errors->any())
         <div class="alert alert-danger">
@@ -29,8 +29,8 @@
 
                 </li>
                 <li class="list-group-item">
-                    <label for="filter_by2">Search by username</label>
-                    <input class="form-control" type="string" placeholder="username" name="UsernameFilter" @if(@isset($filters)) value="{{$filters->UsernameFilter}}" @endif>
+                    <label for="filter_by2">Search by phone number</label>
+                    <input class="form-control" type="string" placeholder="phone number" name="PhoneFilter" @if(@isset($filters)) value="{{$filters->UsernameFilter}}" @endif>
 
                 </li>
                 <li class="list-group-item">
@@ -45,35 +45,34 @@
             <input class="form-check-input" type="checkbox" id="search_is_active" name="ActivationFilter" value="1" @if(@isset($filters) && $filters->ActivationFilter == '1')checked @endif>
             <label class="form-check-label">Active Users Only</label>
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="search_is_admin" name="AdministrationFilter" value="1" @if(@isset($filters) && $filters->AdministrationFilter == '1 ')checked @endif>
-            <label class="form-check-label">Admins Only</label>
-        </div>
+ 
         <br>
         <button class="btn btn-primary" type="submit">Apply filters</button>
-        <a href="{{URL('d_user/')}}" class="btn btn-danger">Remove filters</a>
+        <a href="{{URL('vendor/')}}" class="btn btn-danger">Remove filters</a>
         <br>
         <br>
 
     </form>
     <h6 class="well well-lg">Loged in user id: {{Auth::user()->id}}</h6>
     <h6 class="well well-lg">Loged in username: {{Auth::user()->username}}</h6><br>
-    @if(@isset($d_users) && ! $d_users->isEmpty())
+    @if(@isset($vendors) && ! $vendors->isEmpty())
     <ul class="list-group">
-        @foreach($d_users as $d_user)
-
-        <li class="list-group-item  well"><span class="text-primary">email:</span> {{$d_user->email}}</li>
-        <li class="list-group-item  well"><span class="text-primary">User Status 'Admin/User':</span> @if($d_user->is_admin ==1) Admin @else User @endif</li>
-        <li class="list-group-item  well"><span class="text-primary">Account Status: </span>@if($d_user->is_active ==1) <span class="text-success">Active</span>@else <span class="text-danger">Inactive</span> @endif</li>
+        @foreach($vendors as $vendor)
+        @if(isset($vendor->address))
+{{$vendor->address->city->country->name}}
+@endif
+        <li class="list-group-item  well"><span class="text-primary">Email:</span> {{$vendor->email}}</li>
+        <li class="list-group-item  well"><span class="text-primary">Phone Number:</span>{{$vendor->phone}}</li>
+        <li class="list-group-item  well"><span class="text-primary">Account Status: </span>@if($vendor->is_active ==1) <span class="text-success">Active</span>@else <span class="text-danger">Inactive</span> @endif</li>
 
 
         <br>
         <div class="row">
             <div class="col-auto">
-                    <a href="{{URL('d_user/'.$d_user->id .'/edit')}}" class="btn btn-primary" name="edit" >Edit</a>
+                    <a href="{{URL('vendor/'.$vendor->id .'/edit')}}" class="btn btn-primary" name="edit" >Edit</a>
             </div>
             <div class="col-auto">
-                <form method="POST" action="{{URL('d_user/'.$d_user->id)}}">
+                <form method="POST" action="{{URL('vendor/'.$vendor->id)}}">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger" name="Delete" type="submit">Delete</button>
@@ -84,7 +83,7 @@
         @endforeach
     </ul>
     <div>
-        {{ $d_users->links('pagination::bootstrap-4') }}
+        {{ $vendors->links('pagination::bootstrap-4') }}
     </div>
     @else
     <div class="alert alert-danger">

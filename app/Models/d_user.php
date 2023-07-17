@@ -6,17 +6,13 @@ use App\Http\Filters\AdministrationFilter;
 use App\Http\Filters\EmailFilter;
 use App\Http\Filters\NameFilter;
 use App\Http\Filters\UsernameFilter;
-use Illuminate\Database\Eloquent\Builder;
 use App\Http\Filters\Filter;
-use App\Http\Filters\UserFilter;
-use App\Http\Requests\FiltersRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Builder;
+use App\Http\Requests\FiltersRequest;
 
 
 class d_user extends Authenticatable 
@@ -31,7 +27,7 @@ class d_user extends Authenticatable
 
 
 
-    public function scopeFilter(Builder $query, $request){
+    public function scopeFilter(Builder $query,  FiltersRequest $request){
         $filters = [];
         if ($request->input('EmailFilter')) {
             array_push($filters, new EmailFilter());

@@ -8,13 +8,41 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       @if(Auth::check() && Auth::user()->is_admin ==1)
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="{{URL('/d_user')}}">All useres</a>
-        </li>
-        <li class="nav-item">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            User
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+            <li class="nav-item">
+              <a class="dropdown-item"href="{{URL('/d_user')}}">All Useres</a>
+            </li>
+            <li class="nav-item">
 
-          <a class="nav-link" href="{{URL('/d_user/create')}}">Add new User</a>
+              <a class="dropdown-item"href="{{URL('/d_user/create')}}">Add new User</a>
+            </li>
+
+          </ul>
         </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Vendor
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+          <li class="nav-item">
+              <a class="dropdown-item"href="{{URL('/vendor')}}">All Vendors</a>
+            </li>
+            <li class="nav-item">
+
+              <a class="dropdown-item"href="{{URL('/vendor/create')}}">Add new Vendor</a>
+            </li>
+          </ul>
+        </li>
+
+
+
+
+
       </ul>
       @endif
       <ul class="navbar-nav ml-auto">
@@ -31,7 +59,7 @@
         </li>
         @endif
       </ul>
-      
+
 
     </div>
   </div>

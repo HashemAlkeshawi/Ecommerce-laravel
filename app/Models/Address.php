@@ -19,6 +19,12 @@ class Address extends Model
     {
         return $this->morphTo();
     }
+    public function vendor():HasOne{
+        return $this->hasOne(Vendor::class, 'addressable_id');
+    }
+    public function d_user():HasOne{
+        return $this->hasOne(d_user::class, 'addressable_id');
+    }
 
     public function city(): BelongsTo
     {

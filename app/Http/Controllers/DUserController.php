@@ -12,13 +12,14 @@ use Illuminate\Support\Facades\Auth;
 class DUserController extends Controller
 {
 
-    public function index()
-    {
+    public function index(FiltersRequest $request)
+    { 
+            $query = d_user::query();
 
-        // $d_users = d_user::OrderBy('id', 'desc')->where('is_admin', "!=", 1)->paginate(4);
-        $d_users = d_user::paginate(4);
+            $d_users =   d_user::filter($request, $query)->paginate(10);
+
+            return view('d_user.index')->with('d_users', $d_users)->with('filters', $request);
         
-        return view('d_user.index')->with('d_users', $d_users);
     }
 
 
@@ -110,5 +111,4 @@ class DUserController extends Controller
 
         return redirect('/d_user');
     }
-
 }
