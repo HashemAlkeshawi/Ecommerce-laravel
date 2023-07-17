@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 
 
-class ActivationFilter
+class ActivationFilter extends Filter
 {
-    public function filter(Builder $query, $active)
+    public function scopeFilter(Builder $query, $active)
     {
         return $query->where('is_active', $active);
     }

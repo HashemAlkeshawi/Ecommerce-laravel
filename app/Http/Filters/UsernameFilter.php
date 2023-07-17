@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 
 
-class UsernameFilter
+class UsernameFilter extends Filter
 {
-    public function filter(Builder $query, $username)
+    public function scopeFilter(Builder $query, $username)
     {
         return $query->where('username', 'like',  '%' . $username . '%');
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Filters\ActivationFilter;
 use App\Http\Filters\AdministrationFilter;
 use App\Http\Filters\EmailFilter;
+use App\Http\Filters\Filter;
 use App\Http\Filters\NameFilter;
 use App\Http\Filters\UsernameFilter;
 use App\Http\Requests\FiltersRequest;
@@ -16,31 +17,27 @@ class FiltersController extends Controller
     //
     public function index(FiltersRequest $request)
     {
-        $query = d_user::query();   
+        $query = d_user::query();
 
         $filters = [];
         if ($request->input('EmailFilter')) {
-            array_push($filters,  EmailFilter::class);
+            array_push($filters, new EmailFilter());
         }
         if ($request->input('UsernameFilter')) {
-            array_push($filters, UsernameFilter::class);
+            array_push($filters, new UsernameFilter());
         }
         if ($request->input('NameFilter')) {
-            array_push($filters,  NameFilter::class);
+            array_push($filters, new NameFilter());
         }
 
-        if ($request->ActivationFilter == 1)  array_push($filters,  ActivationFilter::class);
-        if ($request->AdministrationFilter == 1) array_push($filters,  AdministrationFilter::class);
+        if ($request->ActivationFilter == 1)  array_push($filters, new  ActivationFilter());
+        if ($request->AdministrationFilter == 1) array_push($filters, new AdministrationFilter());
 
 
-        foreach($filters as $filter){
-            $filterPathArray = explode('\\', $filter);
-            $filterName = end($filterPathArray);
-            app($filter)->filter($query, $request[$filterName]);
-        }
+
+        $query = Filter::apply($query, $request, $filters);
 
 
-   
         $d_users = $query->paginate(4);
         return view('d_user.index')->with('d_users', $d_users)->with('filters', $request);
     }

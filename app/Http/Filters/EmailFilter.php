@@ -4,9 +4,9 @@ namespace App\Http\Filters;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class EmailFilter
+class EmailFilter extends Filter
 {
-    public function filter(Builder $query, $email)
+    public function scopeFilter(Builder $query, $email)
     {
         return $query->where('email', 'like',  '%' . $email . '%');
     }
