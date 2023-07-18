@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\DUserController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
@@ -63,3 +64,5 @@ Route::resource('d_user', DUserController::class)->except(['create', 'store'])->
 //// !!! All routes needs to be fixed and grouped !!!
 
 Route::resource('vendor', VendorController::class)->middleware(['auth', 'check_role']);
+Route::resource('address', AddressController::class)->middleware(['auth', 'check_role']);
+

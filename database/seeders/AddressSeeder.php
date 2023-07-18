@@ -32,9 +32,9 @@ class AddressSeeder extends Seeder
             $address->phone = '+9701234567';
 
             $vendor = Vendor::find(13);
-            // $user = d_user::find(7);
-
             $vendor->address()->save($address);
+
+            // $user = d_user::find(7);
             // $user->address()->save($address);
         }
     }

@@ -36,7 +36,7 @@
             </div>
             <div class="form-group">
                 <label class="form-label">Phone Number</label>
-                <input class="form-control" type="text" name="phone" pattern="[\+]\d+" id="phone">
+                <input class="form-control" type="text" name="phone" id="phone">
             </div>
             <br>
             <div class="form-check">
@@ -52,4 +52,6 @@
         </form>
     </div>
 </div>
+
+
 @endsection

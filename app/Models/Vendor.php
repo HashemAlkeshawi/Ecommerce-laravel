@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Filters\NameFilter;
 use App\Http\Filters\ActivationFilter;
+use App\Http\Filters\CountryFilter;
 use App\Http\Filters\EmailFilter;
 use App\Http\Filters\PhoneFilter;
 use App\Http\Filters\Filter;
@@ -25,6 +26,9 @@ class Vendor extends Model
     public function scopeFilter(Builder $query, $request)
     {
         $filters = [];
+        if ($request->input('CountryFilter')) {
+            array_push($filters, new CountryFilter());
+        }
         if ($request->input('EmailFilter')) {
             array_push($filters, new EmailFilter());
         }
