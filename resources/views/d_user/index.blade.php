@@ -37,6 +37,19 @@
                     <label for="filter_by3">Search by name</label>
                     <input class="form-control" type="string" placeholder="full name" name="NameFilter" @if(@isset($filters) ) value="{{$filters->NameFilter}}" @endif>
                 </li>
+                <li class="list-group-item">
+                    <div class="form-group">
+                        <label for="country">Search by country:</label>
+                        <select class="form-select" aria-label="Default select example" name="CountryFilter" id="country">
+
+                            <option value='' @if(!@isset($filters->CountryFilter) ) selected @endif>Country..</option>
+
+                            @foreach($countries as $country)
+                            <option value="{{ $country->id}}" @if(@isset($filters->CountryFilter) && $filters->CountryFilter == $country->id ) selected @endif>{{ $country->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </li>
 
             </ul>
         </div>
@@ -61,16 +74,29 @@
     @if(@isset($d_users) && ! $d_users->isEmpty())
     <ul class="list-group">
         @foreach($d_users as $d_user)
-
+        <a href="{{URL('d_user/'. $d_user->id)}}">
+            <li class="list-group-item  well"><span class="text-primary">Name:</span> {{$d_user->first_name}} {{ $d_user->last_name}}</li>
+        </a>
         <li class="list-group-item  well"><span class="text-primary">email:</span> {{$d_user->email}}</li>
         <li class="list-group-item  well"><span class="text-primary">User Status 'Admin/User':</span> @if($d_user->is_admin ==1) Admin @else User @endif</li>
         <li class="list-group-item  well"><span class="text-primary">Account Status: </span>@if($d_user->is_active ==1) <span class="text-success">Active</span>@else <span class="text-danger">Inactive</span> @endif</li>
+        @if(isset($d_user->address))
 
+        <li class="list-group-item  well"><span class="text-primary">Country: </span> {{$d_user->address->city->country->name}}
+        </li>
+        <li class="list-group-item  well"><span class="text-primary">City: </span> {{$d_user->address->city->name}}
+        </li>
+        <li class="list-group-item  well"><span class="text-primary">Street: </span> {{$d_user->address->street}}
+        </li>
+        <li class="list-group-item  well"><span class="text-primary">District: </span> {{$d_user->address->district}}
+        </li>
+
+        @endif
 
         <br>
         <div class="row">
             <div class="col-auto">
-                    <a href="{{URL('d_user/'.$d_user->id .'/edit')}}" class="btn btn-primary" name="edit" >Edit</a>
+                <a href="{{URL('d_user/'.$d_user->id .'/edit')}}" class="btn btn-primary" name="edit">Edit</a>
             </div>
             <div class="col-auto">
                 <form method="POST" action="{{URL('d_user/'.$d_user->id)}}">

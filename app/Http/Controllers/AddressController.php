@@ -55,7 +55,13 @@ class AddressController extends Controller
 
         $addressable = $this->addressable_type($addressable_type, $addressable_id);
         $addressable->address()->save($address);
-        return redirect('/d_user/dashboard');
+
+        if ($address->addressable_type == Vendor::class) {
+            return redirect('vendor/' . $address->addressable_id);
+        } else if ($address->addressable_type == d_user::class) {
+
+            return redirect('d_user/' . $address->addressable_id);
+        }
     }
 
     /**
@@ -90,7 +96,13 @@ class AddressController extends Controller
         $address->phone = $request['phone'];
 
         $address->save();
-        return redirect('/d_user/dashboard');
+
+        switch ($address->addressable_type) {
+            case Vendor::class:
+                return redirect('vendor/' . $address->addressable_id);
+            case d_user::class:
+                return redirect('d_user/' . $address->addressable_id);
+        }
     }
 
     /**

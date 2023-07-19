@@ -24,7 +24,7 @@ class VendorController extends Controller
         // dd($request);
 
 
-        $vendors =   Vendor::with('address')->filter($request, $query)->paginate(10);
+        $vendors =   Vendor::filter($request, $query)->paginate(5);
         $countries = country::get();
      
         return view('vendor.index')->with('countries', $countries)->with('vendors', $vendors)->with('filters', $request);
@@ -106,7 +106,7 @@ class VendorController extends Controller
 
 
 
-        return redirect('vendor');
+        return redirect('vendor/'.$vendor->id);
     }
 
     /**

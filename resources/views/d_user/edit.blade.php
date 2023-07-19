@@ -44,7 +44,7 @@
                 <input class="form-control" type="text" name="last_name" id="last_name" value="{{$d_user->last_name}}">
             </div>
             <br>
-            @if($d_user->is_active)  
+            @if($d_user->is_active)
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="is_active" name="is_active" value="1">
                 <label class="form-check-label">Deactivate User?</label>
@@ -56,12 +56,30 @@
             </div>
             @endif
 
+            <br>
+            <div class="row">
+                <div class="col-auto">
+                    <button class="btn btn-primary" type="submit">Save Updates </button>
+                </div>
 
-
-
-            <br><br>
-            <button class="btn btn-primary" type="submit">Save</button>
+            </div>
         </form>
+        <div class="row">
+            @if(isset($d_user->address))
+            <div class="col-auto">
+                <a href="{{URL('address/'.$d_user->address->id .'/edit')}}" class="btn btn-primary" name="edit">Edit Address</a>
+            </div>
+            @else
+            <div class="col-auto">
+                <form method="GET" action="{{URL('address/create/')}}">
+                    <input type="hidden" name="addressable_id" value="{{$d_user->id}}">
+                    <input type="hidden" name="addressable_type" value="u">
+                    <button class="btn btn-primary" type="submit">Set Address</button>
+                </form>
+            </div>
+
+            @endif
+        </div>
     </div>
 </div>
 @endsection

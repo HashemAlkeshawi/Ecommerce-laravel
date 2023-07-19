@@ -1,7 +1,7 @@
 @section('navbar')
 <nav class="navbar navbar-expand-lg navbar-light bg-light p-4">
   <div class="container">
-    <a class="navbar-brand" href="#">Store</a>
+    <a class="navbar-brand" href="{{URL('/')}}">Store</a>
     <button class="navbar-toggler" type="button">
     </button>
 

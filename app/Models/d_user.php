@@ -3,6 +3,7 @@
 namespace App\Models;
 use App\Http\Filters\ActivationFilter;
 use App\Http\Filters\AdministrationFilter;
+use App\Http\Filters\CountryFilter;
 use App\Http\Filters\EmailFilter;
 use App\Http\Filters\NameFilter;
 use App\Http\Filters\UsernameFilter;
@@ -29,6 +30,9 @@ class d_user extends Authenticatable
 
     public function scopeFilter(Builder $query,  FiltersRequest $request){
         $filters = [];
+        if ($request->input('CountryFilter')) {
+            array_push($filters, new CountryFilter());
+        }
         if ($request->input('EmailFilter')) {
             array_push($filters, new EmailFilter());
         }

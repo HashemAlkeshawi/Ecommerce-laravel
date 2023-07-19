@@ -49,17 +49,28 @@
             <br><br>
             <div class="row">
                 <div class="col-auto">
-                    <button class="btn btn-primary" type="submit">Update Vendor</button>
+                    <button class="btn btn-primary" type="submit">Save Updates </button>
                 </div>
-                @if(isset($vendor->address))
-                <div class="col-auto">
-                    <a href="{{URL('address/'.$vendor->address->id .'/edit')}}" class="btn btn-primary" name="edit">Edit Address</a>
-                </div>
-                @endif
+
             </div>
 
 
         </form>
+        <div class="row">
+            @if(isset($vendor->address))
+            <div class="col-auto">
+                <a href="{{URL('address/'.$vendor->address->id .'/edit')}}" class="btn btn-primary" name="edit">Edit Address</a>
+            </div>
+            @else
+            <div class="col-auto">
+                <form method="GET" action="{{URL('address/create/')}}">
+                    <input type="hidden" name="addressable_id" value="{{$vendor->id}}">
+                    <input type="hidden" name="addressable_type" value="u">
+                    <button class="btn btn-primary" type="submit">Set Address</button>
+                </form>
+            </div>
+            @endif
+        </div>
     </div>
 </div>
 

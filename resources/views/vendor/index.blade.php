@@ -30,7 +30,7 @@
                 </li>
                 <li class="list-group-item">
                     <label for="filter_by2">Search by phone number</label>
-                    <input class="form-control" type="string" placeholder="phone number" name="PhoneFilter" @if(@isset($filters)) value="{{$filters->UsernameFilter}}" @endif>
+                    <input class="form-control" type="string" placeholder="phone number" name="PhoneFilter" @if(@isset($filters)) value="{{$filters->PhoneFilter}}" @endif>
 
                 </li>
                 <li class="list-group-item">
@@ -85,7 +85,7 @@
         </li>
         <li class="list-group-item  well"><span class="text-primary">Street: </span> {{$vendor->address->street}}
         </li>
-        <li class="list-group-item  well"><span class="text-primary">District: </span> {{$vendor->address->districts}}
+        <li class="list-group-item  well"><span class="text-primary">District: </span> {{$vendor->address->district}}
         </li>
 
         @endif

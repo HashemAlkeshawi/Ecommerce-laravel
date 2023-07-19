@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FiltersRequest;
 use App\Http\Requests\storeUserRequest;
 use App\Http\Requests\updateUserRequest;
+use App\Models\Country;
 use App\Models\d_user;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -17,8 +18,9 @@ class DUserController extends Controller
             $query = d_user::query();
 
             $d_users =   d_user::filter($request, $query)->paginate(10);
+            $countries = Country::get();
 
-            return view('d_user.index')->with('d_users', $d_users)->with('filters', $request);
+            return view('d_user.index')->with('countries', $countries)->with('d_users', $d_users)->with('filters', $request);
         
     }
 
@@ -63,6 +65,9 @@ class DUserController extends Controller
 
     public function show(d_user $d_user)
     {
+        return view('d_user.show')->with('d_user', $d_user);
+
+
     }
 
 

@@ -42,9 +42,10 @@
         @else
         <li class="list-group-item well">
             <form method="GET" action="{{URL('address/create/')}}">
-                <input type="hidden" name = "addressable_id" value="{{$vendor->id}}">
-                <input type="hidden" name = "addressable_type" value="v">
+                <input type="hidden" name="addressable_id" value="{{$vendor->id}}">
+                <input type="hidden" name="addressable_type" value="v">
                 <button class="btn btn-primary" type="submit">Set Address</button>
+            </form>
         </li>
         @endif
 
