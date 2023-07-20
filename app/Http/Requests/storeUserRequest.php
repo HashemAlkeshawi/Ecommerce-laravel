@@ -30,7 +30,7 @@ class storeUserRequest extends FormRequest
                     Is_active must be 0 or 1
                     Password must contain at least one uppercase letter, one lower case letter, one numeric value, one special character and more than 8 characters long            
              */
-            'username' => 'required|unique:d_users|min:5',
+            'username' => 'required|unique:users|min:5',
             'first_name' => 'required|min:3|max:15',
             'last_name' => 'required|min:3|max:15',
             'is_admin' => 'in:0,1',

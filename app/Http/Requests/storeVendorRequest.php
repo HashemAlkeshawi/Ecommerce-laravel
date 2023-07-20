@@ -28,7 +28,7 @@ class storeVendorRequest extends FormRequest
             'first_name' => 'required|min:3|max:15',
             'last_name' => 'required|min:3|max:15',
             'is_active' => 'in:0,1',
-            'phone' => 'required|regex:/[0-9]{10}/',
+            'phone' => 'required|min:7|max:20',
         ];
     }
 }

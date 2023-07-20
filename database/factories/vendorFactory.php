@@ -2,14 +2,12 @@
 
 namespace Database\Factories;
 
-use Illuminate\Support\Facades\Hash;
-
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\vendor>
  */
-class userFactory extends Factory
+class vendorFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,11 +17,11 @@ class userFactory extends Factory
     public function definition(): array
     {
         return [
-            'username' => fake()->userName(),
             'email' => fake()->safeEmail(),
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
-            'password' => Hash::make(fake()->password(12, 20))
+            'is_active' => 1,
+            'phone' => fake()->phoneNumber(),
         ];
     }
 }

@@ -1,6 +1,6 @@
 @extends('mainTemplate')
 @section('title')
-<title>Add new d_user</title>
+<title>Add new user</title>
 @endsection
 @section('navbar')
 @include('components\navBar')
@@ -21,7 +21,7 @@
         <div class="page-header">
             <h1 class="header">Log In</h1>
         </div>
-        <form method="POST" action="{{URL('d_user/authenticate')}}">
+        <form method="POST" action="{{URL('user/authenticate')}}">
             @csrf
 
 
@@ -45,7 +45,7 @@
 
             <br><br>
             <button class="btn btn-primary" type="submit">Log In</button>
-            <a href="{{URL('/d_user/create')}}"> <span class="btn btn-primary" >Sign Up</span></a>
+            <a href="{{URL('/user/create')}}"> <span class="btn btn-primary" >Sign Up</span></a>
         </form>
     </div>
 </div>

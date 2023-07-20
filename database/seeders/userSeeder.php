@@ -16,14 +16,6 @@ class userSeeder extends Seeder
         echo 'run seeder';
 
 
-        // $users = user::factory()->count(5)->make();
-
-        // foreach($users as $user){
-        //     echo 'in seeding';
-        //     $user->save();
-        // }
-
-
         $users = User::factory(5)->create();
     }
 }

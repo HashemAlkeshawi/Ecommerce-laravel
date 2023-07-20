@@ -1,6 +1,6 @@
 @extends('mainTemplate')
 @section('title')
-<title>Add new d_user</title>
+<title>Add new user</title>
 @endsection
 @include('components\navBar')
 
@@ -18,9 +18,9 @@
     @endif
     <div class="col-12">
         <div class="page-header">
-            <h1 class="header">Add New d_user</h1>
+            <h1 class="header">Add New user</h1>
         </div>
-        <form method="POST" action="{{URL('/d_user')}}">
+        <form method="POST" action="{{URL('/user')}}">
             @csrf
             <div class="form-group">
                 <label class="form-label">Username</label>
@@ -61,7 +61,7 @@
             <br><br>
             <button class="btn btn-primary" type="submit">@if(Auth::check())Add new User @else Sign Up @endif</button>
             @if(!Auth::check())
-            <a href="{{URL('/d_user/')}}"> <span class="btn btn-primary">Have an account? -- Login</span></a>
+            <a href="{{URL('/user/')}}"> <span class="btn btn-primary">Have an account? -- Login</span></a>
             @endif
 
         </form>

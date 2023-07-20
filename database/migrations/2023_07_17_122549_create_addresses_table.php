@@ -27,7 +27,7 @@ return new class extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->morphs('addressable');
-            $table->foreignIdFor(City::class);
+            $table->foreignId('city_id')->constrained('cities');
             $table->string('district');
             $table->string('street');
             $table->string('phone');

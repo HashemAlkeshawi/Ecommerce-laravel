@@ -16,10 +16,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('image');
-            $table->foreignIdFor(Brand::class);
+            $table->foreignId('brand_id')->constrained('brands');
             $table->tinyInteger('is_active');
             $table->softDeletes();
             $table->timestamps();
+
+            $table->unique(['name', 'brand_id']);
         });
     }
 

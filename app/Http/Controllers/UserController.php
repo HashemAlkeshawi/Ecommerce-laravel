@@ -18,7 +18,7 @@ class UserController extends Controller
             $query = User::query();
 
             $users =   User::filter($request, $query)->paginate(10);
-            $countries = Country::get();
+            $countries = Country::select('id', 'name')->get();
 
             return view('user.index')->with('countries', $countries)->with('users', $users)->with('filters', $request);
         

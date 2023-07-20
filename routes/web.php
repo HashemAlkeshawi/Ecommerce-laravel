@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\AddressController;
-use App\Http\Controllers\DUserController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
@@ -65,4 +66,5 @@ Route::resource('user', UserController::class)->except(['create', 'store'])->mid
 
 Route::resource('vendor', VendorController::class)->middleware(['auth', 'check_role']);
 Route::resource('address', AddressController::class)->middleware(['auth', 'check_role']);
+Route::resource('brand', BrandController::class)->middleware(['auth', 'check_role']);
 

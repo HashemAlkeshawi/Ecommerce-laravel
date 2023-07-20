@@ -23,7 +23,7 @@ class User extends Authenticatable
 
     public function address(): MorphOne
     {
-        return $this->morphOne(Address::class, 'addressable')->withDefault();
+        return $this->morphOne(Address::class, 'addressable');
     }
 
 

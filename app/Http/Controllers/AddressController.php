@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\storeAddressRequest;
 use App\Models\Address;
-use App\Models\City;
 use App\Models\Country;
-use App\Models\d_user;
+use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 
@@ -58,9 +57,9 @@ class AddressController extends Controller
 
         if ($address->addressable_type == Vendor::class) {
             return redirect('vendor/' . $address->addressable_id);
-        } else if ($address->addressable_type == d_user::class) {
+        } else if ($address->addressable_type == User::class) {
 
-            return redirect('d_user/' . $address->addressable_id);
+            return redirect('user/' . $address->addressable_id);
         }
     }
 
@@ -96,12 +95,13 @@ class AddressController extends Controller
         $address->phone = $request['phone'];
 
         $address->save();
-
+// dd(User::class);
         switch ($address->addressable_type) {
             case Vendor::class:
                 return redirect('vendor/' . $address->addressable_id);
-            case d_user::class:
-                return redirect('d_user/' . $address->addressable_id);
+            case User::class:
+                // dd($address->addressable_type);
+                return redirect('user/' . $address->addressable_id);
         }
     }
 
@@ -122,7 +122,7 @@ class AddressController extends Controller
                 $addressable = Vendor::find($addressable_id);
                 break;
             case 'u':
-                $addressable = d_user::find($addressable_id);
+                $addressable = User::find($addressable_id);
                 break;
         }
         return $addressable;

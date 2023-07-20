@@ -14,11 +14,11 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
             <li class="nav-item">
-              <a class="dropdown-item"href="{{URL('/d_user')}}">All Useres</a>
+              <a class="dropdown-item"href="{{URL('/user')}}">All Useres</a>
             </li>
             <li class="nav-item">
 
-              <a class="dropdown-item"href="{{URL('/d_user/create')}}">Add new User</a>
+              <a class="dropdown-item"href="{{URL('/user/create')}}">Add new User</a>
             </li>
 
           </ul>
@@ -48,14 +48,14 @@
       <ul class="navbar-nav ml-auto">
         @if(Auth::check())
         <li class="nav-item">
-          <a class="btn btn-outline-success my-2 my-sm-0" href="{{URL('d_user/logout')}}">Log Out</a>
+          <a class="btn btn-outline-success my-2 my-sm-0" href="{{URL('user/logout')}}">Log Out</a>
         </li>
         @else
         <li class="nav-item">
-          <a class="btn btn-outline-success my-2 my-sm-0" href="{{URL('d_user/login')}}">Log in</a>
+          <a class="btn btn-outline-success my-2 my-sm-0" href="{{URL('user/login')}}">Log in</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-outline-success my-2 my-sm-0" href="{{URL('d_user/create')}}">sign up</a>
+          <a class="btn btn-outline-success my-2 my-sm-0" href="{{URL('user/create')}}">sign up</a>
         </li>
         @endif
       </ul>

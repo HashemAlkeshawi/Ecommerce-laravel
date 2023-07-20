@@ -20,7 +20,7 @@ return new class extends Migration
             password*
             timestamps
          */
-        Schema::create('User', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username');
             $table->string('email');
@@ -40,6 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('d_users');
+        Schema::dropIfExists('users');
     }
 };

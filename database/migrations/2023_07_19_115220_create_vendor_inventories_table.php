@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\inventory;
 use App\Models\Vendor;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,8 +14,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('vendor_inventories', function (Blueprint $table) {
-            $table->foreignIdFor(Vendor::class);
-            $table->foreignIdFor(Inventory::class);
+            $table->foreignId('vendor_id')->constrained('vendors');
+            $table->foreignId('inventory_id')->constrained('inventories');
             $table->softDeletes();
             $table->timestamps();
             $table->primary(['vendor_id', 'inventory_id']);
