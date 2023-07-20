@@ -15,8 +15,7 @@ use App\Http\Filters\CountryFilter;
 use App\Http\Filters\EmailFilter;
 use App\Http\Filters\PhoneFilter;
 use App\Http\Filters\Filter;
-
-
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Vendor extends Model
 {
@@ -50,5 +49,10 @@ class Vendor extends Model
     public function address(): MorphOne
     {
         return $this->morphOne(Address::class, 'addressable');
+    }
+
+    public function Inventories(): BelongsToMany
+    {
+        return $this->belongsToMany(Inventory::class, 'inventory_items')->withTimestamps();
     }
 }

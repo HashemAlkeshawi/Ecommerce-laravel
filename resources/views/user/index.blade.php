@@ -10,7 +10,7 @@
     <div class="page-header">
         <h1 class="header">All Users</h1>
     </div>
-    <form method="GET" action="{{URL('/d_user')}}">
+    <form method="GET" action="{{URL('/user')}}">
         @csrf
         @if ($errors->any())
         <div class="alert alert-danger">
@@ -64,31 +64,31 @@
         </div>
         <br>
         <button class="btn btn-primary" type="submit">Apply filters</button>
-        <a href="{{URL('d_user/')}}" class="btn btn-danger">Remove filters</a>
+        <a href="{{URL('user/')}}" class="btn btn-danger">Remove filters</a>
         <br>
         <br>
 
     </form>
     <h6 class="well well-lg">Loged in user id: {{Auth::user()->id}}</h6>
     <h6 class="well well-lg">Loged in username: {{Auth::user()->username}}</h6><br>
-    @if(@isset($d_users) && ! $d_users->isEmpty())
+    @if(@isset($users) && ! $users->isEmpty())
     <ul class="list-group">
-        @foreach($d_users as $d_user)
-        <a href="{{URL('d_user/'. $d_user->id)}}">
-            <li class="list-group-item  well"><span class="text-primary">Name:</span> {{$d_user->first_name}} {{ $d_user->last_name}}</li>
+        @foreach($users as $user)
+        <a href="{{URL('user/'. $user->id)}}">
+            <li class="list-group-item  well"><span class="text-primary">Name:</span> {{$user->first_name}} {{ $user->last_name}}</li>
         </a>
-        <li class="list-group-item  well"><span class="text-primary">email:</span> {{$d_user->email}}</li>
-        <li class="list-group-item  well"><span class="text-primary">User Status 'Admin/User':</span> @if($d_user->is_admin ==1) Admin @else User @endif</li>
-        <li class="list-group-item  well"><span class="text-primary">Account Status: </span>@if($d_user->is_active ==1) <span class="text-success">Active</span>@else <span class="text-danger">Inactive</span> @endif</li>
-        @if(isset($d_user->address))
+        <li class="list-group-item  well"><span class="text-primary">email:</span> {{$user->email}}</li>
+        <li class="list-group-item  well"><span class="text-primary">User Status 'Admin/User':</span> @if($user->is_admin ==1) Admin @else User @endif</li>
+        <li class="list-group-item  well"><span class="text-primary">Account Status: </span>@if($user->is_active ==1) <span class="text-success">Active</span>@else <span class="text-danger">Inactive</span> @endif</li>
+        @if(isset($user->address))
 
-        <li class="list-group-item  well"><span class="text-primary">Country: </span> {{$d_user->address->city->country->name}}
+        <li class="list-group-item  well"><span class="text-primary">Country: </span> {{$user->address->city->country->name}}
         </li>
-        <li class="list-group-item  well"><span class="text-primary">City: </span> {{$d_user->address->city->name}}
+        <li class="list-group-item  well"><span class="text-primary">City: </span> {{$user->address->city->name}}
         </li>
-        <li class="list-group-item  well"><span class="text-primary">Street: </span> {{$d_user->address->street}}
+        <li class="list-group-item  well"><span class="text-primary">Street: </span> {{$user->address->street}}
         </li>
-        <li class="list-group-item  well"><span class="text-primary">District: </span> {{$d_user->address->district}}
+        <li class="list-group-item  well"><span class="text-primary">District: </span> {{$user->address->district}}
         </li>
 
         @endif
@@ -96,10 +96,10 @@
         <br>
         <div class="row">
             <div class="col-auto">
-                <a href="{{URL('d_user/'.$d_user->id .'/edit')}}" class="btn btn-primary" name="edit">Edit</a>
+                <a href="{{URL('user/'.$user->id .'/edit')}}" class="btn btn-primary" name="edit">Edit</a>
             </div>
             <div class="col-auto">
-                <form method="POST" action="{{URL('d_user/'.$d_user->id)}}">
+                <form method="POST" action="{{URL('user/'.$user->id)}}">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger" name="Delete" type="submit">Delete</button>
@@ -110,7 +110,7 @@
         @endforeach
     </ul>
     <div>
-        {{ $d_users->links('pagination::bootstrap-4') }}
+        {{ $users->links('pagination::bootstrap-4') }}
     </div>
     @else
     <div class="alert alert-danger">

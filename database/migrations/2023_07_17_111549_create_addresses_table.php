@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\City;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -26,8 +27,9 @@ return new class extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->morphs('addressable');
-            $table->bigInteger('city_id');
+            $table->foreignIdFor(City::class);
             $table->string('district');
+            $table->string('street');
             $table->string('phone');
             $table->softDeletes();
             $table->timestamps();

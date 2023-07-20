@@ -20,7 +20,7 @@ return new class extends Migration
             password*
             timestamps
          */
-        Schema::create('d_users', function (Blueprint $table) {
+        Schema::create('User', function (Blueprint $table) {
             $table->id();
             $table->string('username');
             $table->string('email');

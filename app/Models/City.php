@@ -14,13 +14,19 @@ class City extends Model
     use SoftDeletes;
     use HasFactory;
 
+
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class)->withDefault();
+    }
+
     public function address(): HasMany
     {
         return $this->hasMany(Address::class);
     }
 
-    public function country(): BelongsTo
+    public function inventories(): HasMany
     {
-        return $this->belongsTo(Country::class);
+        return $this->hasMany(Inventory::class);
     }
 }

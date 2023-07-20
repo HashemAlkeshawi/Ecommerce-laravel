@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\d_user;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,7 +14,7 @@ class AdminUserSeeder extends Seeder
      */
     public function run(): void
     {
-        $d_user = new d_user();
+        $d_user = new User();
         $d_user->username = 'adminUserName';
         $d_user->email = 'adminEmail@email.com';
         $d_user->password = Hash::make('adminADMIN@123');

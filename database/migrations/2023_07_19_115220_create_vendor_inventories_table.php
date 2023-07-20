@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Country;
+use App\Models\Vendor;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,12 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cities', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->foreignIdFor(Country::class);
+        Schema::create('vendor_inventories', function (Blueprint $table) {
+            $table->foreignIdFor(Vendor::class);
+            $table->foreignIdFor(Inventory::class);
             $table->softDeletes();
             $table->timestamps();
+            $table->primary(['vendor_id', 'inventory_id']);
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cities');
+        Schema::dropIfExists('vendor_inventories');
     }
 };

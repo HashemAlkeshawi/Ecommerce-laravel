@@ -6,28 +6,28 @@ use App\Http\Requests\FiltersRequest;
 use App\Http\Requests\storeUserRequest;
 use App\Http\Requests\updateUserRequest;
 use App\Models\Country;
-use App\Models\d_user;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
-class DUserController extends Controller
+class UserController extends Controller
 {
 
     public function index(FiltersRequest $request)
     { 
-            $query = d_user::query();
+            $query = User::query();
 
-            $d_users =   d_user::filter($request, $query)->paginate(10);
+            $users =   User::filter($request, $query)->paginate(10);
             $countries = Country::get();
 
-            return view('d_user.index')->with('countries', $countries)->with('d_users', $d_users)->with('filters', $request);
+            return view('user.index')->with('countries', $countries)->with('users', $users)->with('filters', $request);
         
     }
 
 
     public function create()
     {
-        return view('d_user.create');
+        return view('user.create');
     }
 
 
@@ -45,38 +45,38 @@ class DUserController extends Controller
          $table->boolean('is_active')->default(1);
          $table->string('password');
          */
-        $d_user = new d_user;
+        $user = new User;
 
-        $d_user->username = $request['username'];
-        $d_user->email = $request['email'];
-        $d_user->first_name = $request['first_name'];
-        $d_user->last_name = $request['last_name'];
-        $d_user->is_admin = $request['is_admin'] == '1' ? 1 : 0;
-        $d_user->password =  Hash::make($request['password']);
+        $user->username = $request['username'];
+        $user->email = $request['email'];
+        $user->first_name = $request['first_name'];
+        $user->last_name = $request['last_name'];
+        $user->is_admin = $request['is_admin'] == '1' ? 1 : 0;
+        $user->password =  Hash::make($request['password']);
 
-        $d_user->save();
+        $user->save();
 
         if (!Auth::check()) {
-            Auth::login($d_user, false);
+            Auth::login($user, false);
         }
 
-        return redirect('/d_user');
+        return redirect('/user');
     }
 
-    public function show(d_user $d_user)
+    public function show(User $user)
     {
-        return view('d_user.show')->with('d_user', $d_user);
+        return view('user.show')->with('user', $user);
 
 
     }
 
 
-    public function edit(d_user $d_user)
+    public function edit(User $user)
     {
-        return view('d_user.edit')->with('d_user', $d_user);
+        return view('user.edit')->with('user', $user);
     }
 
-    public function update(updateUserRequest $request, d_user $d_user)
+    public function update(updateUserRequest $request, User $user)
     {
         $validated = $request->validated();
         // dd($request);
@@ -92,7 +92,7 @@ class DUserController extends Controller
          */
         // dd($request['username']);
 
-        $d_user->update(
+        $user->update(
             [
                 'username' => $request['username'],
                 'email' => $request['email'],
@@ -100,20 +100,20 @@ class DUserController extends Controller
                 'last_name' => $request['last_name'],
                 'is_admin' => $request['is_admin'],
                 'is_active' => $request['is_active'] == '1' ? 0 : 1,
-                'is_admin' => $d_user->is_admin,
+                'is_admin' => $user->is_admin,
 
             ]
         );
 
 
-        return redirect('/d_user');
+        return redirect('/user');
     }
 
 
-    public function destroy(d_user $d_user)
+    public function destroy(User $user)
     {
-        $d_user->delete();
+        $user->delete();
 
-        return redirect('/d_user');
+        return redirect('/user');
     }
 }

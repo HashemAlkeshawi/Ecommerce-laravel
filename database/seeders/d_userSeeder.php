@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\d_user;
+use App\Models\user;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class d_userSeeder extends Seeder
+class userSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +16,7 @@ class d_userSeeder extends Seeder
         echo 'run seeder';
 
 
-        // $users = d_user::factory()->count(5)->make();
+        // $users = user::factory()->count(5)->make();
 
         // foreach($users as $user){
         //     echo 'in seeding';
@@ -24,6 +24,6 @@ class d_userSeeder extends Seeder
         // }
 
 
-        $d_users = d_user::factory(5)->create();
+        $users = User::factory(5)->create();
     }
 }

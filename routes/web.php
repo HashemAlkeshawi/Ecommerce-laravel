@@ -24,42 +24,42 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return redirect('/d_user/dashboard');
+    return redirect('/user/dashboard');
 });
 //// !!! All routes needs to be fixed and grouped !!!
 
 Route::get('/home', function () {
-    return redirect('/d_user/dashboard');
+    return redirect('/user/dashboard');
 });
 //// !!! All routes needs to be fixed and grouped !!!
-Route::get('d_user/dashboard', 'App\Http\Controllers\DashboardController@index')->middleware('auth');
+Route::get('user/dashboard', 'App\Http\Controllers\DashboardController@index')->middleware('auth');
 
 //// !!! All routes needs to be fixed and grouped !!!
 
-Route::get('d_user/login', 'App\Http\Controllers\LoginController@login')->middleware('check_autherized')->name('login');
+Route::get('user/login', 'App\Http\Controllers\LoginController@login')->middleware('check_autherized')->name('login');
 
 //// !!! All routes needs to be fixed and grouped !!!
 
-Route::post('d_user/authenticate', 'App\Http\Controllers\LoginController@authenticate');
+Route::post('user/authenticate', 'App\Http\Controllers\LoginController@authenticate');
 
 //// !!! All routes needs to be fixed and grouped !!!
 
-Route::get('d_user/create', 'App\Http\Controllers\DUserController@create')->middleware('check_autherized');
+Route::get('user/create', 'App\Http\Controllers\UserController@create')->middleware('check_autherized');
 
 //// !!! All routes needs to be fixed and grouped !!!
 
-Route::get('d_user/logout', 'App\Http\Controllers\LoginController@logout');
+Route::get('user/logout', 'App\Http\Controllers\LoginController@logout');
 
 //// !!! All routes needs to be fixed and grouped !!!
 
 
 //// !!! All routes needs to be fixed and grouped !!!
 
-Route::post('d_user/', 'App\Http\Controllers\DUserController@store');
+Route::post('user/', 'App\Http\Controllers\UserController@store');
 
 //// !!! All routes needs to be fixed and grouped !!!
 
-Route::resource('d_user', DUserController::class)->except(['create', 'store'])->middleware(['auth', 'check_role']);
+Route::resource('user', UserController::class)->except(['create', 'store'])->middleware(['auth', 'check_role']);
 
 //// !!! All routes needs to be fixed and grouped !!!
 

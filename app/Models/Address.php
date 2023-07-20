@@ -17,17 +17,17 @@ class Address extends Model
 
     public function addressable(): MorphTo
     {
-        return $this->morphTo();
+        return $this->morphTo()->withDefault();
     }
     public function vendor():HasOne{
-        return $this->hasOne(Vendor::class, 'addressable_id');
+        return $this->hasOne(Vendor::class, 'addressable_id')->withDefault();
     }
-    public function d_user():HasOne{
-        return $this->hasOne(d_user::class, 'addressable_id');
+    public function user():HasOne{
+        return $this->hasOne(User::class, 'addressable_id')->withDefault();
     }
 
     public function city(): BelongsTo
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class)->withDefault();
     }
 }
