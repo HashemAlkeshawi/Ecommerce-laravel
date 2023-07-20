@@ -16,9 +16,10 @@
             <div class="card" style="width: 18rem;">
                 <img class="card-img-top" src="{{$brand->icon}}" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">{{$brand->name}}</h5>
+                    <a href="{{URL('item')}}" class="link-dark">
+                        <h5 class="card-title">{{$brand->name}}</h5>
+                    </a>
                     <p class="card-text">{{$brand->notes}}</p>
-                    <a href="{{URL('item')}}" class="btn btn-primary">Show Items</a>
                 </div>
             </div>
         </div>
