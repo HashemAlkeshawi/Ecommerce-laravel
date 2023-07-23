@@ -31,10 +31,10 @@ Route::get('/', function () {
 //// !!! All routes needs to be fixed and grouped !!!
 
 Route::get('/home', function () {
-    return redirect('/user/dashboard');
+    return view('home');
 });
 //// !!! All routes needs to be fixed and grouped !!!
-Route::get('user/dashboard', 'App\Http\Controllers\DashboardController@index')->middleware('auth');
+Route::get('user/dashboard', 'App\Http\Controllers\DashboardController@index')->middleware(['auth', 'check_role']);
 
 //// !!! All routes needs to be fixed and grouped !!!
 
