@@ -24,24 +24,8 @@ class Vendor extends Model
 
     public function scopeFilter(Builder $query, $request)
     {
-        $filters = [];
-        if ($request->input('CountryFilter')) {
-            array_push($filters, new CountryFilter());
-        }
-        if ($request->input('EmailFilter')) {
-            array_push($filters, new EmailFilter());
-        }
-        if ($request->input('PhoneFilter')) {
-            array_push($filters, new PhoneFilter());
-        }
-        if ($request->input('NameFilter')) {
-            array_push($filters, new NameFilter());
-        }
-        if ($request->ActivationFilter == 1)  array_push($filters, new  ActivationFilter());
-
-
-
-        Filter::apply($query, $request, $filters);
+     
+        Filter::apply($query, $request);
     }
 
 

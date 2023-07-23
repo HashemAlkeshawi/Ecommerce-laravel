@@ -111,7 +111,7 @@
     </div>
     @else
     <div class="alert alert-danger">
-        <p>No useres found!</p>
+        <p>No Vendors found!</p>
     </div>
 
     @endif

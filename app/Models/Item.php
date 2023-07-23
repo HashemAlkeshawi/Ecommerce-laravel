@@ -2,6 +2,12 @@
 
 namespace App\Models;
 
+use App\Http\Filters\ActivationFilter;
+use App\Http\Filters\BrandIdFilter;
+use App\Http\Filters\ItemNameFilter;
+use App\Http\Filters\Filter;
+use App\Http\Filters\IdFilter;
+use App\Http\Filters\NameFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,6 +25,12 @@ class Item extends Model
         return $this->belongsTo(Brand::class);
     }
 
+    public function scopeFilter($query, $request)
+    {
+
+        Filter::apply($query, $request);
+    }
+
     public function inventories(): BelongsToMany
     {
         return $this->belongsToMany(Inventory::class, 'inventory_items')->withPivot(
@@ -29,5 +41,9 @@ class Item extends Model
                 'deleted_at'
             ]
         );;
+    }
+    public function isActive(): bool
+    {
+        return $this->is_active == 1;
     }
 }

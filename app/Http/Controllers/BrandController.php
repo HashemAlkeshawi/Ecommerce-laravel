@@ -6,6 +6,8 @@ use App\Http\Requests\storeBrandRequest;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Http\traits\uploadFile;
+use App\Models\Item;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class BrandController extends Controller
@@ -15,16 +17,18 @@ class BrandController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $brands = Brand::get();
+        // dd($request);
+        $query = Brand::query();
+
+        $brands = Brand::filter($request, $query)->paginate(15);
         foreach ($brands as $brand) {
             $brand->icon = Storage::url($brand->icon);
         }
 
-        //    $image_url = Storage::url('uploads/brand_icons/1689861309103.png');
-        return view('brand.index')->with('brands', $brands);
+        return view('brand.index')->with('brands', $brands)->with('filters', $request);
     }
 
     /**
@@ -48,14 +52,30 @@ class BrandController extends Controller
         $brand->icon = $this->getUploadedImagePath($request->file('icon'), 'brand_icons');
 
         $brand->save();
+        return redirect("brand/$brand->id");
+
+
+
+        
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Brand $brand)
+    public function show(Brand $brand, Request $request)
     {
-        //
+
+        $query = Item::query();
+        $items = $brand->items();
+        if (Auth::user()->is_admin != 1)
+            $request['ActivationFilter'] = 1;
+        $filtered_items = $items->filter($request, $query)->paginate(8);
+        // dd($filtered_items);
+        foreach ($filtered_items as $item) {
+            $item->image = Storage::url($item->image);
+        }
+        $request['brand'] = $brand;
+        return view('brand.show')->with('items', $filtered_items)->with('filters', $request);
     }
 
     /**
@@ -75,15 +95,24 @@ class BrandController extends Controller
     public function update(Request $request, Brand $brand)
     {
 
+        $rules = [
+            'name' => 'required',
+            'notes' => 'required',
+        ];
+        if ($request['name'] != $brand->name) {
+            $rules['name'] = 'required|unique:brands';
+        }
+        $request->validate($rules);
         $brand->name =  $request['name'];
         $brand->notes = $request['notes'];
         if ($request->has('icon')) {
-            if (Storage::exists('public/'.$brand->icon)) {
-                Storage::delete('public/'.$brand->icon);
+            if (Storage::exists('public/' . $brand->icon)) {
+                Storage::delete('public/' . $brand->icon);
             }
             $brand->icon = $this->getUploadedImagePath($request->file('icon'), 'brand_icons');
         }
         $brand->save();
+        return redirect('/brand');
     }
 
     /**
@@ -92,6 +121,7 @@ class BrandController extends Controller
     public function destroy(Brand $brand)
     {
         //
+        // Storage::delete('public/'.$brand->icon);
         $brand->delete();
         return redirect()->back();
     }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use App\Http\Filters\ActivationFilter;
 use App\Http\Filters\AdministrationFilter;
 use App\Http\Filters\CountryFilter;
@@ -16,7 +17,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Http\Requests\FiltersRequest;
 
 
-class User extends Authenticatable 
+class User extends Authenticatable
 {
     use SoftDeletes;
     use HasFactory;
@@ -28,31 +29,17 @@ class User extends Authenticatable
 
 
 
-    public function scopeFilter(Builder $query,  FiltersRequest $request){
-        $filters = [];
-        if ($request->input('CountryFilter')) {
-            array_push($filters, new CountryFilter());
-        }
-        if ($request->input('EmailFilter')) {
-            array_push($filters, new EmailFilter());
-        }
-        if ($request->input('UsernameFilter')) {
-            array_push($filters, new UsernameFilter());
-        }
-        if ($request->input('NameFilter')) {
-            array_push($filters, new NameFilter());
-        }
+    public function scopeFilter(Builder $query,  FiltersRequest $request)
+    {
 
-        if ($request->ActivationFilter == 1)  array_push($filters, new  ActivationFilter());
-        if ($request->AdministrationFilter == 1) array_push($filters, new AdministrationFilter());
+        Filter::apply($query, $request);
+    }
 
-        Filter::apply($query, $request, $filters);
-
-        
+    function isAdmin(): bool
+    {
+        return $this->is_admin == 1;
     }
 
 
-   
-    protected $fillable = ['username','email', 'first_name','last_name', 'is_admin', 'password', 'is_active'];
-
+    protected $fillable = ['username', 'email', 'first_name', 'last_name', 'is_admin', 'password', 'is_active'];
 }

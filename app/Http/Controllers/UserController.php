@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FiltersRequest;
 use App\Http\Requests\storeUserRequest;
-use App\Http\Requests\updateUserRequest;
 use App\Models\Country;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,14 +14,13 @@ class UserController extends Controller
 {
 
     public function index(FiltersRequest $request)
-    { 
-            $query = User::query();
+    {
+        $query = User::query();
 
-            $users =   User::filter($request, $query)->paginate(10);
-            $countries = Country::select('id', 'name')->get();
+        $users =   User::filter($request, $query)->paginate(10);
+        $countries = Country::select('id', 'name')->get();
 
-            return view('user.index')->with('countries', $countries)->with('users', $users)->with('filters', $request);
-        
+        return view('user.index')->with('countries', $countries)->with('users', $users)->with('filters', $request);
     }
 
 
@@ -66,8 +65,6 @@ class UserController extends Controller
     public function show(User $user)
     {
         return view('user.show')->with('user', $user);
-
-
     }
 
 
@@ -76,21 +73,23 @@ class UserController extends Controller
         return view('user.edit')->with('user', $user);
     }
 
-    public function update(updateUserRequest $request, User $user)
+    public function update(Request $request, User $user)
     {
-        $validated = $request->validated();
-        // dd($request);
-        // dd($validated);
-        /***
-         $table->string('username');
-         $table->string('email');
-         $table->string('first_name', 20);
-         $table->string('last_name', 20);
-         $table->boolean('is_admin')->default(0);
-         $table->boolean('is_active')->default(1);
-         $table->string('password');
-         */
-        // dd($request['username']);
+
+
+        $rules = [
+            'username' => 'required|min:5',
+            'first_name' => 'required|min:3|max:15',
+            'last_name' => 'required|min:3|max:15',
+            'is_admin' => 'in:0,1',
+            'is_active' => 'in:0,1',
+        ];
+
+        if ($request['username'] != $user->username) {
+            $rules['username'] = 'required|unique:users';
+        }
+        $request->validate($rules);
+
 
         $user->update(
             [

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
@@ -66,5 +67,11 @@ Route::resource('user', UserController::class)->except(['create', 'store'])->mid
 
 Route::resource('vendor', VendorController::class)->middleware(['auth', 'check_role']);
 Route::resource('address', AddressController::class)->middleware(['auth', 'check_role']);
-Route::resource('brand', BrandController::class)->middleware(['auth', 'check_role']);
 
+Route::resource('brand', BrandController::class)->only(['create', 'edit', 'store', 'update', 'destroy'])->middleware(['auth', 'check_role']);
+Route::resource('brand', BrandController::class)->only(['index', 'show'])->middleware('auth');
+Route::get('brand/{brand_id}/item', 'App\Http\Controllers\ItemController@createForBrand')->middleware(['auth', 'check_role']);
+
+
+Route::resource('item', ItemController::class)->only(['create', 'edit', 'store', 'update', 'destroy'])->middleware(['auth', 'check_role']);
+Route::resource('item', ItemController::class)->only(['index', 'show'])->middleware('auth');
