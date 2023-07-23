@@ -1,6 +1,6 @@
 @extends('mainTemplate')
 @section('title')
-<title>Home</title>
+<title>Items</title>
 @endsection
 @section('navbar')
 @include('components\navBar')
@@ -17,12 +17,9 @@
             </ul>
         </div>
         @endif
-        @if(isset($filters->brand))
-        <h1 class="header">Items of: {{$filters->brand->name}}</h1>
-        @endif
     </div>
 
-    <form method="GET" action="{{URL('item')}}" id="brand_filter_form">
+    <form method="GET" action="{{URL('inventory/'.$filters->inventory_id.'/item')}}" id="brand_filter_form">
         @csrf
         <div class="row">
             <ul class="list-group list-group-horizontal">
@@ -63,58 +60,63 @@
             </ul>
         </div>
         <br>
-
         <button class="btn btn-primary" type="submit">Apply filters</button>
-
-
-        <a href="{{URL('item')}}" class="btn btn-danger">Remove filters</a>
+        <a href="{{URL('inventory/'.$filters->inventory_id.'/item')}}" class="btn btn-danger">Remove filters</a>
     </form>
 
     <br>
     <br>
-    <div class="row">
-        @foreach($items as $item)
-        <div class="col-auto">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"  width="100" height="220" src="{{$item->image}}" alt="Card image cap">
-                <div class="card-body">
-                    <a href="{{URL('item/' . $item->id)}}" class="link-dark">
-                        <h5 class="card-title">{{$item->name}}</h5>
-                    </a>
-                    <h6 class="card-text">{{$item->brand->name}}</h6>
-                </div>
-                @if(Auth::user()->isAdmin())
-                <div class="row ">
-                    <div class="col-auto" style="margin-left: 10px;">
-                        <a href="{{URL('item/'.$item->id .'/edit')}}" class="btn btn-primary" name="edit">Edit</a>
-                    </div>
-                    <div class="col-auto">
-                        <form method="POST" action="{{URL('item/'.$item->id)}}">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger" name="Delete" type="submit">Delete</button>
-                        </form>
-                    </div>
-                    <div class="col-auto">
-                        @if($item->isActive())
-                        <div class="d-inline-flex align-items-center">
-                            <div class="rounded-circle bg-success" style="width: 15px; height: 15px; margin:8px;"></div>
-                            <span class="status-text">Active</span>
-                        </div>
-                        @else
-                        <div class="d-inline-flex align-items-center">
-                            <div class="rounded-circle bg-danger" style="width: 15px; height: 15px;  margin:8px;"></div>
-                            <span class="status-text">Inactive</span>
-                        </div>
-                        @endif
-                    </div>
-                </div>
-                @endif
-            </div>
-        </div>
+    <form method="POST" action="{{URL('inventory/'.$filters->inventory_id.'/item')}}" id="add_items_inventory">
+        @csrf
 
-        @endforeach
-    </div>
+        <div class="row">
+            <div class="row">
+                <div class="col-auto">
+                    <h2>Select items</h2>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary" type="submit">Add Items to Inventory</button>
+                </div>
+            </div>
+            @foreach($items as $item)
+            <div class="col-auto">
+                <div class="card" style="width: 18rem;">
+                    <div class=" form-check">
+                        <label>Select</label>
+                        <input class="form-check-input" type="checkbox" id="{{ 'item_' . $item->id }}" name="items[]" value="{{ $item->id }}">
+                    </div>
+                    <div class="form-control">
+                        <label>Quantity:</label>
+                        <input class="form-input" type="number" id="{{ 'quantity_' . $item->id }}" name="quantities[{{ $item->id }}]" value="">
+                    </div>
+                    <img class="card-img-top" width="100" height="200" src="{{$item->image}}" alt="Card image cap">
+                    <div class="card-body">
+                        <a href="{{URL('item/' . $item->id)}}" class="link-dark">
+                            <h5 class="card-title">{{$item->name}}</h5>
+                        </a>
+                        <h6 class="card-text">{{$item->brand->name}}</h6>
+                    </div>
+                    <div class="row ">
+                        <div class="col-auto">
+                            @if($item->isActive())
+                            <div class="d-inline-flex align-items-center">
+                                <div class="rounded-circle bg-success" style="width: 15px; height: 15px; margin:8px;"></div>
+                                <span class="status-text">Active</span>
+                            </div>
+                            @else
+                            <div class="d-inline-flex align-items-center">
+                                <div class="rounded-circle bg-danger" style="width: 15px; height: 15px;  margin:8px;"></div>
+                                <span class="status-text">Inactive</span>
+                            </div>
+                            @endif
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </form>
 
     <br>
     <br>
@@ -124,7 +126,6 @@
     <br>
     @if(Auth::user()->isAdmin())
 
-    <a href="{{URL('item/create')}}" class="btn btn-primary" style="position: fixed; bottom: 50px; right: 50px; ">Add item</a>
     @endif
 </div>
 

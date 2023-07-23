@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col-3">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{{$brand->icon}}" alt="Card image cap" id="brandImage">
+                <img class="card-img-top"  width="100" height="220" src="{{$brand->icon}}" alt="Card image cap" id="brandImage">
                 <div class="card-body">
                     <a href="{{URL('item')}}" class="link-dark">
                         <h5 id="brandName" class="card-title">{{$brand->name}}</h5>

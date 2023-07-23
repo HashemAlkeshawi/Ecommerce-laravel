@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-    class FiltersRequest extends FormRequest
+class storeInventoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,17 @@ use Illuminate\Foundation\Http\FormRequest;
     public function rules(): array
     {
         return [
-            // 'search_username' => 'min:5',
-            'NameFilter' => 'nullable|string|min:3',
-            // 'search_first_name' => 'min:3|max:15',
-            // 'search_last_name' => 'min:3|max:15',
-            // 'search_is_admin' => 'in:0,1',
-            // 'seasrch_is_active' => 'in:0,1',
+            'country' => 'required|numeric',
+            'city' => 'required|numeric',
+            'name' => 'required|min:3',
+            'phone' => 'required|min:7|max:20',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'country.numeric' => 'make sure to select a Country',
+            'city.numeric' => 'make sure to select a City',
         ];
     }
 }

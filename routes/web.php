@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
@@ -75,3 +76,14 @@ Route::get('brand/{brand_id}/item', 'App\Http\Controllers\ItemController@createF
 
 Route::resource('item', ItemController::class)->only(['create', 'edit', 'store', 'update', 'destroy'])->middleware(['auth', 'check_role']);
 Route::resource('item', ItemController::class)->only(['index', 'show'])->middleware('auth');
+
+
+Route::resource('inventory', InventoryController::class)->middleware(['auth', 'check_role']);
+
+Route::get('inventory/{inventory_id}/item', 'App\Http\Controllers\InventoryItemController@create')->middleware(['auth', 'check_role']);
+Route::post('inventory/{inventory_id}/item', 'App\Http\Controllers\InventoryItemController@store')->middleware(['auth', 'check_role']);
+Route::delete('inventory/{inventory_id}/item', 'App\Http\Controllers\InventoryItemController@destroy')->middleware(['auth', 'check_role']);
+
+
+Route::get('inventory/{inventory_id}/vendor', 'App\Http\Controllers\InventoryVendorController@create')->middleware(['auth', 'check_role']);
+Route::post('inventory/{inventory_id}/vendor', 'App\Http\Controllers\InventoryVendorController@store')->middleware(['auth', 'check_role']);

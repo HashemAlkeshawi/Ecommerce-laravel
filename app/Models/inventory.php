@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Filters\Filter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,10 +10,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class inventory extends Model
+class Inventory extends Model
 {
     use SoftDeletes;
     use HasFactory;
+
+    public function scopeFilter($query, $request){
+        Filter::apply($query, $request);
+    }
 
     public function city(): BelongsTo
     {
@@ -32,6 +37,6 @@ class inventory extends Model
     }
     public function vendors(): BelongsToMany
     {
-        return $this->belongsToMany(Vendor::class, 'inventory_items')->withTimestamps();
+        return $this->belongsToMany(Vendor::class, 'vendor_inventories')->withTimestamps();
     }
 }

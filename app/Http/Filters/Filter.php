@@ -32,7 +32,10 @@ abstract class Filter
         if ($request->input('ItemNameFilter')) {
             array_push($filters, new ItemNameFilter());
         }
-
+        if ($request->input('AddressCountryFilter')) {
+            array_push($filters, new AddressCountryFilter());
+        }
+        
         if ($request->input('CountryFilter')) {
             array_push($filters, new CountryFilter());
         }

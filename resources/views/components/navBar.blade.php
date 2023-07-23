@@ -43,6 +43,24 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Inventory
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+              <li class="nav-item">
+                <a class="dropdown-item" href="{{URL('/inventory')}}">All Inventories</a>
+              </li>
+              <li class="nav-item">
+
+                <a class="dropdown-item" href="{{URL('/inventory/create')}}">Add new Inventory</a>
+              </li>
+            </ul>
+          </li>
+
+
+
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Brand
             </a>
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">

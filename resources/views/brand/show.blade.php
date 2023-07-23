@@ -64,7 +64,7 @@
         @foreach($items as $item)
         <div class="col-auto">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{{$item->image}}" alt="Card image cap">
+                <img class="card-img-top"  width="100" height="220" src="{{$item->image}}" alt="Card image cap">
                 <div class="card-body">
                     <a href="{{URL('item/' . $item->id)}}" class="link-dark">
                         <h5 class="card-title">{{$item->name}}</h5>

@@ -14,12 +14,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inventory_items', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('item_id')->constrained('items');
             $table->foreignId('inventory_id')->constrained('inventories');
             $table->integer('quantity');
             $table->softDeletes();
             $table->timestamps();
+            $table->primary(['item_id', 'inventory_id']);
+
         });
     }
 

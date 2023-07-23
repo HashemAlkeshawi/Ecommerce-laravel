@@ -40,12 +40,12 @@
                 <li class="list-group-item">
                     <div class="form-group">
                         <label for="country">Search by country:</label>
-                        <select class="form-select" aria-label="Default select example" name="CountryFilter" id="country">
+                        <select class="form-select" aria-label="Default select example" name="AddressCountryFilter" id="country">
 
-                            <option value='' @if(!@isset($filters->CountryFilter) ) selected @endif>Country..</option>
+                            <option value='' @if(!@isset($filters->AddressCountryFilter) ) selected @endif>Country..</option>
 
                             @foreach($countries as $country)
-                            <option value="{{ $country->id}}" @if(@isset($filters->CountryFilter) && $filters->CountryFilter == $country->id ) selected @endif>{{ $country->name }}</option>
+                            <option value="{{ $country->id}}" @if(@isset($filters->AddressCountryFilter) && $filters->AddressCountryFilter == $country->id ) selected @endif>{{ $country->name }}</option>
                             @endforeach
                         </select>
                     </div>

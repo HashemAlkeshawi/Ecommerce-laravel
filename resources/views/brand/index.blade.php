@@ -57,7 +57,7 @@
         @foreach($brands as $brand)
         <div class="col-auto">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{{$brand->icon}}" alt="Card image cap">
+                <img class="card-img-top"  width="100" height="220" src="{{$brand->icon}}" alt="Card image cap">
                 <div class="card-body">
 
                     <a class="" href="{{URL('brand/' . $brand->id)}}">{{$brand->name}}</a>
