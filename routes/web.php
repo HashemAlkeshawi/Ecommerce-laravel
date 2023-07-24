@@ -80,6 +80,8 @@ Route::resource('item', ItemController::class)->only(['index', 'show'])->middlew
 
 Route::resource('inventory', InventoryController::class)->middleware(['auth', 'check_role']);
 
+
+
 Route::get('inventory/{inventory_id}/item', 'App\Http\Controllers\InventoryItemController@create')->middleware(['auth', 'check_role']);
 Route::post('inventory/{inventory_id}/item', 'App\Http\Controllers\InventoryItemController@store')->middleware(['auth', 'check_role']);
 Route::delete('inventory/{inventory_id}/item', 'App\Http\Controllers\InventoryItemController@destroy')->middleware(['auth', 'check_role']);
@@ -87,3 +89,4 @@ Route::delete('inventory/{inventory_id}/item', 'App\Http\Controllers\InventoryIt
 
 Route::get('inventory/{inventory_id}/vendor', 'App\Http\Controllers\InventoryVendorController@create')->middleware(['auth', 'check_role']);
 Route::post('inventory/{inventory_id}/vendor', 'App\Http\Controllers\InventoryVendorController@store')->middleware(['auth', 'check_role']);
+Route::delete('inventory/{inventory_id}/vendor', 'App\Http\Controllers\InventoryVendorController@destroy')->middleware(['auth', 'check_role']);

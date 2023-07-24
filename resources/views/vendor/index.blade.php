@@ -10,17 +10,17 @@
     <div class="page-header">
         <h1 class="header">All Vendors</h1>
     </div>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <form method="GET" action="{{URL('/vendor/')}}">
         @csrf
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
         <div class="row">
             <ul class="list-group list-group-horizontal">
                 <li class="list-group-item">

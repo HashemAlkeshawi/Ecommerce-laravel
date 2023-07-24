@@ -34,10 +34,10 @@
         </li>
         <li class="list-group-item  well"><span class="text-primary">Vendors: </span> {{count($inventory->vendors)}}
         </li>
-    
+
         <li class="list-group-item  well"><span class="text-primary">Items: </span> {{count($inventory->items)}}
         </li>
-    
+
         <br>
         <div class="row">
             <div class="col-auto">
@@ -56,17 +56,49 @@
 
     <div>
         <h2 id="vendors">Vendors of the Inventory</h2>
-        <a href="{{URL('inventory/'.$filters->inventory->id .'/vendor')}}" class="btn btn-primary">Add Item</a>
-     <br>
-     <br>
+        <a href="{{URL('inventory/'.$filters->inventory->id .'/vendor')}}" class="btn btn-primary">Add Vendor</a>
+        <br><br>
+        <div class="row">
+            @foreach($inventory->vendors as $vendor)
+            <div class="col-auto">
+                <ul class="list-group">
+
+                    <li class="list-group-item  well"><span class="text-primary">Name:</span> {{$vendor->first_name}} {{ $vendor->last_name}}</li>
+                    <li class="list-group-item  well"><span class="text-primary">Phone Number:</span>{{$vendor->phone}}</li>
+                    <li class="list-group-item  well"><span class="text-primary">Account Status: </span>@if($vendor->is_active ==1) <span class="text-success">Active</span>@else <span class="text-danger">Inactive</span> @endif</li>
+                    @if(isset($vendor->address))
+
+                    <li class="list-group-item  well"><span class="text-primary">Country: </span> {{$vendor->address->city->country->name}}
+                    </li>
+                    <li class="list-group-item  well"><span class="text-primary">City: </span> {{$vendor->address->city->name}}
+                    </li>
+                    <li class="list-group-item  well">
+                        <form method="POST" action="{{URL('inventory/'. $inventory->id .'/vendor')}}">
+                            @csrf
+                            @method("DELETE")
+                            <input type="hidden" name="inventory_id" value="{{$inventory->id}}">
+                            <input type="hidden" name="vendor_id" value="{{$vendor->id}}">
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        </form>
+                    </li>
+                    <hr>
+
+                    @endif
+                </ul>
+            </div>
+
+            @endforeach
+        </div>
+        <br>
+        <br>
     </div>
     <br>
     <hr>
     <div>
-        <h2 id="items" >Items of the Inventory</h2><br>
+        <h2 id="items">Items of the Inventory</h2><br>
         <a href="{{URL('inventory/'.$filters->inventory->id .'/item')}}" class="btn btn-primary">Add Item</a>
-       <br>
-       <br>
+        <br>
+        <br>
         <div class="row">
             @foreach($inventory->items as $item)
             <div class="col-auto">

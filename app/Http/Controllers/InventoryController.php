@@ -74,7 +74,7 @@ class InventoryController extends Controller
     {
         //
         $countries = Country::with('City')->get();
-        return view('inventory.edit')->with('inventory', $inventory)->with('countries', $countries);
+        return view('inventory.edit', compact('countries', 'inventory'));
     }
 
     /**
