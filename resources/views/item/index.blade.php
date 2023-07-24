@@ -43,6 +43,14 @@
                     <label for="filter_by3">Search by name</label>
                     <input class="form-control" type="string" placeholder="full name" name="ItemNameFilter" @if(@isset($filters) ) value="{{$filters->ItemNameFilter}}" @endif>
                 </li>
+                <li class="list-group-item">
+                    <label for="filter_by3">Search by vendor name</label>
+                    <input class="form-control" type="string" placeholder="full name" name="ItemVendorFilter" @if(@isset($filters) ) value="{{$filters->ItemVendorFilter}}" @endif>
+                </li>
+                <li class="list-group-item">
+                    <label for="filter_by3">Search by inventory</label>
+                    <input class="form-control" type="string" placeholder="full name" name="ItemInventoryFilter" @if(@isset($filters) ) value="{{$filters->ItemInventoryFilter}}" @endif>
+                </li>
                 @if(Auth::user()->isAdmin())
                 <li class="list-group-item">
                     <div class="form-check">

@@ -3,7 +3,6 @@
 namespace App\Http\Filters;
 
 use Illuminate\Database\Eloquent\Builder;
-use App\Http\Requests\FiltersRequest;
 use Illuminate\Http\Request;
 
 abstract class Filter
@@ -34,6 +33,13 @@ abstract class Filter
         }
         if ($request->input('AddressCountryFilter')) {
             array_push($filters, new AddressCountryFilter());
+        }
+        
+        if ($request->input('ItemInventoryFilter')) {
+            array_push($filters, new ItemInventoryFilter());
+        }
+        if ($request->input('ItemVendorFilter')) {
+            array_push($filters, new ItemVendorFilter());
         }
         
         if ($request->input('CountryFilter')) {

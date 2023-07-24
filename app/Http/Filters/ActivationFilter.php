@@ -10,6 +10,7 @@ class ActivationFilter extends Filter
 {
     public function filter(Builder $query, $active)
     {
-        return $query->where('is_active', $active);
+        $table_name = $query->from;
+        return $query->where($table_name.'.is_active', $active);
     }
 }

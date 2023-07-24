@@ -27,7 +27,6 @@ class Item extends Model
 
     public function scopeFilter($query, $request)
     {
-
         Filter::apply($query, $request);
     }
 
@@ -42,6 +41,7 @@ class Item extends Model
             ]
         );
     }
+
     public function isActive(): bool
     {
         return $this->is_active == 1;

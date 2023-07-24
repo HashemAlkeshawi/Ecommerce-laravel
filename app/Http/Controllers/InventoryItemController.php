@@ -33,14 +33,16 @@ class InventoryItemController extends Controller
         $inventory = Inventory::find($inventory_id);
         $items_ids =  $request['items'];
         $quantities = $request['quantities'];
-        foreach ($items_ids as $item_id) {
-            if ($quantities[$item_id] != null) {
-                $item_in_relation = $inventory->items()->wherePivot('item_id', $item_id)->exists();
-                if (!$item_in_relation) {
+        if ($items_ids != null) {
+            foreach ($items_ids as $item_id) {
+                if ($quantities[$item_id] != null) {
+                    $item_in_relation = $inventory->items()->wherePivot('item_id', $item_id)->exists();
+                    if (!$item_in_relation) {
 
-                    $inventory->items()->attach($item_id, ['quantity' => "$quantities[$item_id]"]);
-                } else {
-                    $inventory->items()->updateExistingPivot($item_id, ['quantity' => $quantities[$item_id]]);
+                        $inventory->items()->attach($item_id, ['quantity' => "$quantities[$item_id]"]);
+                    } else {
+                        $inventory->items()->updateExistingPivot($item_id, ['quantity' => $quantities[$item_id]]);
+                    }
                 }
             }
         }

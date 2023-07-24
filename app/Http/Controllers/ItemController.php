@@ -22,6 +22,7 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
+        // dd($request);
 
         $brands = Brand::select('id', 'name')->get();
         $query = Item::query();
