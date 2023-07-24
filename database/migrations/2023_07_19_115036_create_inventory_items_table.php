@@ -14,8 +14,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inventory_items', function (Blueprint $table) {
-            $table->foreignId('item_id')->constrained('items');
-            $table->foreignId('inventory_id')->constrained('inventories');
+            $table->foreignId('item_id')->constrained('items')->onDelete('cascade');
+            $table->foreignId('inventory_id')->constrained('inventories')->onDelete('cascade');
             $table->integer('quantity');
             $table->softDeletes();
             $table->timestamps();

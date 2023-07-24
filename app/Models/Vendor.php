@@ -37,6 +37,6 @@ class Vendor extends Model
 
     public function Inventories(): BelongsToMany
     {
-        return $this->belongsToMany(Inventory::class, 'vendor_inventories')->withTimestamps();
+        return $this->belongsToMany(Inventory::class, 'inventory_vendors')->withTimestamps();
     }
 }

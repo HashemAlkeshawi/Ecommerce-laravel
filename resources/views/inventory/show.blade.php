@@ -72,8 +72,9 @@
                     </li>
                     <li class="list-group-item  well"><span class="text-primary">City: </span> {{$vendor->address->city->name}}
                     </li>
+                    @endif
                     <li class="list-group-item  well">
-                        <form method="POST" action="{{URL('inventory/'. $inventory->id .'/vendor')}}">
+                        <form method="POST" action="{{URL('inventory/'. $inventory->id .'/vendor#vendors')}}">
                             @csrf
                             @method("DELETE")
                             <input type="hidden" name="inventory_id" value="{{$inventory->id}}">
@@ -81,9 +82,8 @@
                             <button type="submit" class="btn btn-danger">Remove</button>
                         </form>
                     </li>
-                    <hr>
+                    <br>
 
-                    @endif
                 </ul>
             </div>
 
@@ -127,7 +127,7 @@
                             @endif
                         </div>
                         <div class="col-auto">
-                            <form method="POST" action="{{URL('inventory/'. $inventory->id .'/item')}}">
+                            <form method="POST" action="{{URL('inventory/'. $inventory->id .'/item#items')}}">
                                 @csrf
                                 @method("DELETE")
                                 <input type="hidden" name="inventory_id" value="{{$inventory->id}}">
@@ -137,6 +137,7 @@
                         </div>
                     </div>
                 </div>
+                <br>
             </div>
             @endforeach
 

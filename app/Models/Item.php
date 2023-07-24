@@ -40,7 +40,7 @@ class Item extends Model
                 'updated_at',
                 'deleted_at'
             ]
-        );;
+        );
     }
     public function isActive(): bool
     {

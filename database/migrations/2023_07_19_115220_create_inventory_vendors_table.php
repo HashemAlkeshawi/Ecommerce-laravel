@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vendor_inventories', function (Blueprint $table) {
-            $table->foreignId('vendor_id')->constrained('vendors');
-            $table->foreignId('inventory_id')->constrained('inventories');
+        Schema::create('inventory_vendors', function (Blueprint $table) {
+            $table->foreignId('vendor_id')->constrained('vendors')->onDelete('cascade');
+            $table->foreignId('inventory_id')->constrained('inventories')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
             $table->primary(['vendor_id', 'inventory_id']);
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vendor_inventories');
+        Schema::dropIfExists('inventory_vendors');
     }
 };

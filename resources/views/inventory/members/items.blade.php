@@ -83,11 +83,11 @@
                 <div class="card" style="width: 18rem;">
                     <div class=" form-check">
                         <label>Select</label>
-                        <input class="form-check-input" type="checkbox" id="{{ 'item_' . $item->id }}" name="items[]" value="{{ $item->id }}">
+                        <input class="form-check-input" type="checkbox" id="item_id" name="items[]" value="{{ $item->id }}">
                     </div>
                     <div class="form-control">
                         <label>Quantity:</label>
-                        <input class="form-input" type="number" id="{{ 'quantity_' . $item->id }}" name="quantities[{{ $item->id }}]" value="">
+                        <input class="form-input" type="number" id=" quantity_id" name="quantities[{{ $item->id }}]" value="">
                     </div>
                     <img class="card-img-top" width="100" height="200" src="{{$item->image}}" alt="Card image cap">
                     <div class="card-body">
@@ -113,6 +113,7 @@
                         </div>
                     </div>
                 </div>
+                <br>
             </div>
             @endforeach
         </div>
