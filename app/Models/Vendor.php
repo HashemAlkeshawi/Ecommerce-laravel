@@ -24,7 +24,7 @@ class Vendor extends Model
 
     public function scopeFilter(Builder $query, $request)
     {
-     
+
         Filter::apply($query, $request);
     }
 
@@ -38,5 +38,17 @@ class Vendor extends Model
     public function Inventories(): BelongsToMany
     {
         return $this->belongsToMany(Inventory::class, 'inventory_vendors')->withTimestamps();
+    }
+
+
+    public function Items(): BelongsToMany
+    {
+        return $this->belongsToMany(Item::class, 'vendor_items')->withPivot(
+            [
+                'quantity',
+                'created_at',
+                'updated_at',
+            ]
+        );
     }
 }

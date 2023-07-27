@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\traits\uploadFile;
 use App\Models\User;
 use App\Models\Brand;
+use App\Models\Vendor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -32,7 +33,8 @@ class ItemController extends Controller
 
         $items = Item::filter($request, $query)->paginate(8);
         foreach ($items as $item) {
-            $item->image = Storage::url($item->image);
+            $item->image = asset('storage/' . $item->image);
+            // $item->image = Storage::url($item->image);
         }
         return view('item.index')->with('items', $items)->with('filters', $request)->with('brands', $brands);
     }
@@ -44,8 +46,10 @@ class ItemController extends Controller
     public function create()
     {
         //
+        $vendors = Vendor::selectRaw(" id, CONCAT(first_name, ' ', last_name) as name ")->get();
+        // $vendors = Vendor::select('id', "concat[first_name , last_name]")->get();
         $brands = Brand::select('id', 'name')->get();
-        return view('item.create')->with('brands', $brands);
+        return view('item.create', compact('brands', 'vendors'));
     }
     /**
      * Show the form for creating a new resource.
@@ -63,6 +67,11 @@ class ItemController extends Controller
     public function store(storeItemRequest $request)
     {
         //
+        // dd($request);
+        $vendor_id = $request['vendor_id'];
+        $quantity = $request['quantity'];
+
+
         $item = new Item();
         $item->name =  $request['name'];
         $item->brand_id = $request['brand_id'];
@@ -70,6 +79,9 @@ class ItemController extends Controller
         $item->image = $this->getUploadedImagePath($request->file('image'), 'item_images');
 
         $item->save();
+
+        $item->vendors()->attach($vendor_id, ['quantity' => $quantity]);
+
         return redirect("item/$item->id");
     }
 

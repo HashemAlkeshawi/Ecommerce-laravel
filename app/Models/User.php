@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Requests\FiltersRequest;
-
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -27,6 +27,17 @@ class User extends Authenticatable
         return $this->morphOne(Address::class, 'addressable');
     }
 
+    public function items(): BelongsToMany
+    {
+        return $this->belongsToMany(Item::class, 'user_items')->withPivot(
+            [
+                'quantity',
+                'created_at',
+                'updated_at',
+                'deleted_at'
+            ]
+        );
+    }
 
 
     public function scopeFilter(Builder $query,  FiltersRequest $request)

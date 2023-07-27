@@ -11,7 +11,7 @@ class ItemNameFilter extends Filter
 {
     public function filter(Builder $query, $name)
     {
-      $resutl =   $query->where('name', 'like',  "%" . "$name" . "%");
-    //   dd($resutl);
+      $table_name = $query->from;
+      return  $query->where($table_name.'.name', 'like',  "%" . "$name" . "%");
     }
 }

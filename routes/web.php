@@ -87,6 +87,12 @@ Route::post('inventory/{inventory_id}/item', 'App\Http\Controllers\InventoryItem
 Route::delete('inventory/{inventory_id}/item', 'App\Http\Controllers\InventoryItemController@destroy')->middleware(['auth', 'check_role']);
 
 
-Route::get('inventory/{inventory_id}/vendor', 'App\Http\Controllers\InventoryVendorController@create')->middleware(['auth', 'check_role']);
-Route::post('inventory/{inventory_id}/vendor', 'App\Http\Controllers\InventoryVendorController@store')->middleware(['auth', 'check_role']);
-Route::delete('inventory/{inventory_id}/vendor', 'App\Http\Controllers\InventoryVendorController@destroy')->middleware(['auth', 'check_role']);
+// Route::get('inventory/{inventory_id}/vendor', 'App\Http\Controllers\InventoryVendorController@create')->middleware(['auth', 'check_role']);
+// Route::post('inventory/{inventory_id}/vendor', 'App\Http\Controllers\InventoryVendorController@store')->middleware(['auth', 'check_role']);
+// Route::delete('inventory/{inventory_id}/vendor', 'App\Http\Controllers\InventoryVendorController@destroy')->middleware(['auth', 'check_role']);
+
+
+Route::get('cart', 'App\Http\Controllers\CartController@index')->middleware('auth');
+Route::post('cart', 'App\Http\Controllers\CartController@store')->middleware('auth');
+Route::delete('cart', 'App\Http\Controllers\CartController@destroy')->middleware('auth');
+Route::delete('cart/empty', 'App\Http\Controllers\CartController@empty')->middleware('auth');

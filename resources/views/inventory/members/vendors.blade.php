@@ -1,4 +1,4 @@
-@extends('mainTemplate')
+<!-- @extends('mainTemplate')
 @section('title')
 <title>Items</title>
 @endsection
@@ -128,4 +128,4 @@
 </div>
 
 
-@endsection
+@endsection -->

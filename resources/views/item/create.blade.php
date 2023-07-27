@@ -6,7 +6,7 @@
 
 @section('content')
 
-<div style="margin-top: 100;" class="container">
+<div style="margin-top: 10;" class="container">
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -36,12 +36,26 @@
                     @endforeach
                 </select>
             </div>
+            
 
             <div class="form-group">
                 <label class="form-label">Image</label>
                 <input class="form-control" name="image" type="file">
-            </div><br>
-
+            </div><hr>
+            <div class="form-group">
+                <label for="country">Select Vendor:</label>
+                <select class="form-select" aria-label="Default select example" name="vendor_id" id="vendor_id">
+                    <option selected>Vendor..</option>
+                    @foreach($vendors as $vendor)
+                    <option value="{{$vendor->id}}">{{ $vendor->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Quantity from vendor: </label>
+                <input class="form-control" type="text" name="quantity" placeholder="item quantity" id="quantitq">
+            </div>
+<hr>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active">
                 <label class="form-check-label" for="is_active">

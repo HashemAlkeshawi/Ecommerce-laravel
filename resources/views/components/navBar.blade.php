@@ -97,6 +97,9 @@
           <li class="nav-item">
             <a class="btn btn-outline" href="{{URL('/item')}}">Items</a>
           </li>
+          <li class="nav-item">
+            <a class="btn btn-outline" href="{{URL('/cart')}}">Cart</a>
+          </li>
         </ul>
         @endif
 

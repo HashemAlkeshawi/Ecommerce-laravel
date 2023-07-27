@@ -53,7 +53,7 @@
         </div>
         <hr>
     </ul>
-
+<!-- 
     <div>
         <h2 id="vendors">Vendors of the Inventory</h2>
         <a href="{{URL('inventory/'.$filters->inventory->id .'/vendor')}}" class="btn btn-primary">Add Vendor</a>
@@ -92,9 +92,10 @@
         <br>
         <br>
     </div>
+  
     <br>
     <hr>
-    <div>
+-->  <div>
         <h2 id="items">Items of the Inventory</h2><br>
         <a href="{{URL('inventory/'.$filters->inventory->id .'/item')}}" class="btn btn-primary">Add Item</a>
         <br>

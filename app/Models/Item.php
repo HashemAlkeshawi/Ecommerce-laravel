@@ -41,6 +41,32 @@ class Item extends Model
             ]
         );
     }
+    /***
+     * implementing the cart with database -> now it is by session;
+     */
+
+    // public function users(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(User::class, 'user_items')->withPivot(
+    //         [
+    //             'quantity',
+    //             'created_at',
+    //             'updated_at',
+    //             'deleted_at'
+    //         ]
+    //     );
+    // }
+
+    public function vendors(): BelongsToMany
+    {
+        return $this->belongsToMany(Vendor::class, 'vendor_items')->withPivot(
+            [
+                'quantity',
+                'created_at',
+                'updated_at',
+            ]
+        );
+    }
 
     public function isActive(): bool
     {

@@ -35,6 +35,8 @@ abstract class Filter
             array_push($filters, new AddressCountryFilter());
         }
         
+    
+        
         if ($request->input('ItemInventoryFilter')) {
             array_push($filters, new ItemInventoryFilter());
         }
@@ -52,6 +54,8 @@ abstract class Filter
 
         if ($request->ActivationFilter !=null)  array_push($filters, new  ActivationFilter());
         if ($request->AdministrationFilter == 1) array_push($filters, new AdministrationFilter());
+        if( $request->ItemQuantityFilter != null) array_push($filters, new ItemQuantityFilter());
+
 
         foreach ($filters as $filter) {
             $filter->filter($query, $request[class_basename($filter)]);
