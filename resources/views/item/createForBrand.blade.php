@@ -28,12 +28,16 @@
                 <input class="form-control" type="text" name="name" placeholder="item name" id="name">
             </div>
 
-     
+            <div class="form-group">
+                <label class="form-label">Price</label>
+                <input class="form-control" name="price" type="number" , step="0.01">
+            </div>
 
             <div class="form-group">
                 <label class="form-label">Image</label>
                 <input class="form-control" name="image" type="file">
             </div><br>
+
 
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active">

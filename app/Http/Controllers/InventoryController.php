@@ -20,7 +20,7 @@ class InventoryController extends Controller
         //
         $query = Inventory::query();
 
-        $inventories =   Inventory::filter($request, $query)->paginate(5);
+        $inventories =   Inventory::filter($request->all(), $query)->paginate(5);
         $countries = country::select('id', 'name')->get();
 
         return view('inventory.index')->with('inventories', $inventories)->with('filters', $request)->with('countries', $countries);

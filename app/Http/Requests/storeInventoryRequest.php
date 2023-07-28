@@ -24,7 +24,7 @@ class storeInventoryRequest extends FormRequest
         return [
             'country' => 'required|numeric',
             'city' => 'required|numeric',
-            'name' => 'required|min:3',
+            'name' => 'required',
             'phone' => 'required|min:7|max:20',
         ];
     }

@@ -18,7 +18,7 @@ class InventoryItemController extends Controller
         $brands = Brand::select('id', 'name')->get();
         $query = Item::query();
 
-        $items = Item::filter($request, $query)->paginate(8);
+        $items = Item::filter($request->all(), $query)->paginate(8);
         foreach ($items as $item) {
             $item->image = Storage::url($item->image);
         }

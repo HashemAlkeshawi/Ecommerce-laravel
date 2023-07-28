@@ -23,7 +23,7 @@ class BrandController extends Controller
         // dd($request);
         $query = Brand::query();
 
-        $brands = Brand::filter($request, $query)->paginate(15);
+        $brands = Brand::filter($request->all(), $query)->paginate(15);
         foreach ($brands as $brand) {
             $brand->icon = Storage::url($brand->icon);
         }

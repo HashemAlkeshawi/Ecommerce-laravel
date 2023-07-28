@@ -26,12 +26,15 @@ class ItemController extends Controller
         // dd($request);
 
         $brands = Brand::select('id', 'name')->get();
+        
         $query = Item::query();
 
         if (Auth::user()->is_admin != 1)
             $request['ActivationFilter'] = 1;
 
-        $items = Item::filter($request, $query)->paginate(8);
+        
+
+        $items = Item::filter($request->all(), $query)->paginate(8);
         foreach ($items as $item) {
             $item->image = asset('storage/' . $item->image);
             // $item->image = Storage::url($item->image);
@@ -68,18 +71,17 @@ class ItemController extends Controller
     {
         //
         // dd($request);
-        
-        
+
+
         $item = new Item();
         $item->name =  $request['name'];
         $item->price =  $request['price'];
         $item->brand_id = $request['brand_id'];
-        $item->is_active = $request['is_active'] == '1' ? 1 : 0;
         $item->image = $this->getUploadedImagePath($request->file('image'), 'item_images');
-        
+
         $item->save();
-        
-        
+
+
         return redirect("item/$item->id");
     }
 
@@ -134,7 +136,6 @@ class ItemController extends Controller
         $item->name =  $request['name'];
         $item->price =  $request['price'];
         $item->brand_id = $request['brand_id'];
-        $item->is_active = $request['is_active'] == '1' ? 1 : 0;
         $item->purchasable = $request['purchasable'] == '1' ? 1 : 0;
         if ($request->has('image')) {
             if (Storage::exists('public/' . $item->image)) {

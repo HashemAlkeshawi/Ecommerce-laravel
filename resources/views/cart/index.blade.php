@@ -8,7 +8,15 @@
 @section('content')
 <div style="margin-top: 10;" class="container">
     <div class="page-header">
-
+        @if (session('messages'))
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (session('messages') as $message)
+                <li>{{ $message }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -34,7 +42,7 @@
         </div>
         <div class="col-auto">
             <!-- Add route -->
-            <form method="POST" action="{{URL('purchase/')}}">
+            <form method="POST" action="{{URL('purchase/all')}}">
                 @csrf
                 <button class="btn btn-success" name="purchase_all" type="submit">Purchase all</button>
             </form>
@@ -52,12 +60,12 @@
                     </a>
                     <h5 class="card-title">Unit Price: {{$item->price}}</h5>
 
-                    
+
                     <h6 class="card-text">{{$item->brand->name}}</h6>
                 </div>
                 <div class="card-text">
                     <h6 class="form-check-label" style="margin-left: 10px;">Quantity: {{$item->quantity}}</label>
-                    <h5 class="card-title"  style="margin-left: 10px;" >total price: {{$item->price * $item->quantity}}</h5>
+                        <h5 class="card-title" style="margin-left: 10px;">total price: {{$item->price * $item->quantity}}</h5>
 
                 </div>
                 <div class="row ">
@@ -73,7 +81,10 @@
                         <!-- Add route -->
                         <form method="POST" action="{{URL('purchase/')}}">
                             @csrf
-                            <button class="btn btn-success" name="purchase_all" type="submit">Purchase</button>
+                            <input type="hidden" name="item_id" value="{{$item->id}}">
+                            <input type="hidden" name="quantity" value="{{$item->quantity}}">
+
+                            <button class="btn btn-success" name="purchase" type="submit">Purchase</button>
                         </form>
                     </div>
                 </div>

@@ -16,7 +16,8 @@ class VendorItemController extends Controller
     {
 
         $query = Item::query();
-        $items = Item::filter($request, $query)->paginate(8);
+        $items = Item::filter($request->all(), $query)->paginate(8);
+        
 
 
         $inventories = Inventory::select('id', 'name')->get();

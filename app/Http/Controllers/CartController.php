@@ -26,7 +26,7 @@ class CartController extends Controller
         $brands = Brand::select('id', 'name')->get();
         $query = Item::query();
 
-        $items = Item::filter($request, $query)->paginate(8);
+        $items = Item::filter($request->all(), $query)->paginate(8);
         foreach ($items as $item) {
             $item->image = Storage::url($item->image);
         }
@@ -46,7 +46,7 @@ class CartController extends Controller
             $cart =  session()->get("cart", []);
             if (array_key_exists($item->id, $cart)) {
                 $item->updated_to_cart_at = date('Y-m-d H:i:s');
-                $item->quantity = $quantity;
+                $item->quantity += $quantity;
                 $cart[$item->id] = $item;
             } else {
                 $date = date('Y-m-d H:i:s');
@@ -57,7 +57,7 @@ class CartController extends Controller
             }
             session(["cart" => $cart]);
             // dd(session('cart'));
-            return redirect()->back()->with('messages', ["$quantity of $item->name added to the Cart"]);
+            return redirect()->back()->with('messages', ["Quantity: $quantity of $item->name added to the Cart"]);
         }
         return redirect()->back();
     }

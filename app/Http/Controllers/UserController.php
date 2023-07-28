@@ -16,8 +16,9 @@ class UserController extends Controller
     public function index(FiltersRequest $request)
     {
         $query = User::query();
+        // dd($request->validated());
 
-        $users =   User::filter($request, $query)->paginate(10);
+        $users =   User::filter($request->all(), $query)->paginate(10);
         $countries = Country::select('id', 'name')->get();
 
         return view('user.index')->with('countries', $countries)->with('users', $users)->with('filters', $request);

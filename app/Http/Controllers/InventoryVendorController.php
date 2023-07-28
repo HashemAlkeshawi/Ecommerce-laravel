@@ -16,7 +16,7 @@
 //         $request['$inventory_id'] = $inventory_id;
 //         $query = Vendor::query();
 
-//         $vendors = Vendor::filter($request, $query)->paginate(8);
+//         $vendors = Vendor::filter($request->all(), $query)->paginate(8);
 
 //         $countries = Country::select('id', 'name')->get();
 

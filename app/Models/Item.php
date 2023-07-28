@@ -20,14 +20,14 @@ class Item extends Model
     use SoftDeletes;
     use HasFactory;
 
-    public function brand(): BelongsTo
-    {
-        return $this->belongsTo(Brand::class);
-    }
-
     public function scopeFilter($query, $request)
     {
         Filter::apply($query, $request);
+    }
+
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class);
     }
 
     public function inventories(): BelongsToMany
@@ -41,11 +41,19 @@ class Item extends Model
             ]
         );
     }
+
+    public function purchase_orders(): HasMany
+    {
+        return $this->hasMany(PurchaseOrder::class);
+    }
+
+
     /***
      * implementing the cart with database -> now it is by session;
      */
 
     /**
+
      * public function users(): BelongsToMany
      * {
      *    return $this->belongsToMany(User::class, 'user_items')->withPivot(
@@ -57,7 +65,9 @@ class Item extends Model
      *      ]
      *    );
      * }
-     */
+     **/
+
+
 
 
     public function vendors(): BelongsToMany
@@ -77,12 +87,36 @@ class Item extends Model
     }
 
 
-    public function updatePurchases($quantity){
-       $this->total_purchases += $quantity;
-       $this->save();
+    public function updatePurchases($quantity)
+    {
+        $this->total_purchases += $quantity;
+        $this->save();
     }
-    public function updateSales($quantity){
-       $this->total_sales += $quantity;
-       $this->save();
+    public function updateSales($quantity)
+    {
+        $this->total_sales += $quantity;
+        $this->save();
+    }
+
+    public function activate()
+    {
+        $this->is_active = 1 ;
+        $this->save();
+    }
+
+    public function deactivate()
+    {
+        $this->is_active = 0 ;
+        $this->save();
+    }
+
+    public function increaseSales($quantity){
+        $this->total_sales +=$quantity;
+        $this->save();
+    }
+
+    public function increasePurchases($quantity){
+        $this->total_purchases +=$quantity;
+        $this->save();
     }
 }

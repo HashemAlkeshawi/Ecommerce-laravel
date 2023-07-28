@@ -49,16 +49,17 @@
                     </select>
                 </div>
                 <div class="form-group">
+                <label class="form-label">Price</label>
+                <input class="form-control" name="price" type="number", step="0.01" value="{{$item->price}}">
+            </div>
+                <div class="form-group">
                     <label class="form-label">Image</label>
                     <input class="form-control" name="image" type="file" id="imageInput">
                 </div>
                 <br>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active" @if($item->is_active ==1) checked @endif>
-                    <label class="form-check-label" for="is_active">
-                        Active item?
-                    </label>
-                </div>
+                
+
+
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="1" id="purchasable" name="purchasable" @if($item->purchasable ==1) checked @endif>
                     <label class="form-check-label" for="is_active">

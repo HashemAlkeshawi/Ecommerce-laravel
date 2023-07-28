@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('image');
             $table->foreignId('brand_id')->constrained('brands');
-            $table->tinyInteger('is_active');
+            $table->tinyInteger('is_active')->default(0);
             $table->softDeletes();
             $table->timestamps();
 

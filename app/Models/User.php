@@ -16,35 +16,40 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Requests\FiltersRequest;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
     use SoftDeletes;
     use HasFactory;
 
+
+    public function scopeFilter(Builder $query,   $request)
+    {
+
+        Filter::apply($query, $request);
+    }
     public function address(): MorphOne
     {
         return $this->morphOne(Address::class, 'addressable');
     }
 
-    public function items(): BelongsToMany
-    {
-        return $this->belongsToMany(Item::class, 'user_items')->withPivot(
-            [
-                'quantity',
-                'created_at',
-                'updated_at',
-                'deleted_at'
-            ]
-        );
+    // public function items(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(Item::class, 'user_items')->withPivot(
+    //         [
+    //             'quantity',
+    //             'created_at',
+    //             'updated_at',
+    //             'deleted_at'
+    //         ]
+    //     );
+    // }
+
+    public function purchase_orders(): HasMany{
+        return $this->hasMany(PurchaseOrder::class);
     }
 
-
-    public function scopeFilter(Builder $query,  FiltersRequest $request)
-    {
-
-        Filter::apply($query, $request);
-    }
 
     function isAdmin(): bool
     {

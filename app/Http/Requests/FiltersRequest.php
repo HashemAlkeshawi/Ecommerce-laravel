@@ -23,7 +23,7 @@ use Illuminate\Foundation\Http\FormRequest;
     {
         return [
             // 'search_username' => 'min:5',
-            'NameFilter' => 'nullable|string|min:3',
+            'NameFilter' => 'nullable|string',
             // 'search_first_name' => 'min:3|max:15',
             // 'search_last_name' => 'min:3|max:15',
             // 'search_is_admin' => 'in:0,1',

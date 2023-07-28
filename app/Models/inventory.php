@@ -9,19 +9,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Inventory extends Model
 {
     use SoftDeletes;
     use HasFactory;
 
-    public function scopeFilter($query, $request){
+    public function scopeFilter($query, $request)
+    {
         Filter::apply($query, $request);
     }
 
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function purchase_orders(): HasMany
+    {
+        return $this->hasMany(PurchaseOrder::class);
     }
 
     public function items(): BelongsToMany
@@ -39,4 +46,15 @@ class Inventory extends Model
     {
         return $this->belongsToMany(Vendor::class, 'inventory_vendors')->withTimestamps();
     }
+
+
+    public static function MaxQuantityInvenotry($item_id)
+    {
+        return DB::table('inventory_items')
+            ->select('inventory_id')
+            ->where('item_id', $item_id)
+            ->orderBy('quantity', 'DESC')
+            ->value('inventory_id');
+    }
+
 }
