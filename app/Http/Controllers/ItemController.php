@@ -68,20 +68,18 @@ class ItemController extends Controller
     {
         //
         // dd($request);
-        $vendor_id = $request['vendor_id'];
-        $quantity = $request['quantity'];
-
-
+        
+        
         $item = new Item();
         $item->name =  $request['name'];
+        $item->price =  $request['price'];
         $item->brand_id = $request['brand_id'];
         $item->is_active = $request['is_active'] == '1' ? 1 : 0;
         $item->image = $this->getUploadedImagePath($request->file('image'), 'item_images');
-
+        
         $item->save();
-
-        $item->vendors()->attach($vendor_id, ['quantity' => $quantity]);
-
+        
+        
         return redirect("item/$item->id");
     }
 
@@ -122,6 +120,7 @@ class ItemController extends Controller
         $rules  = [
             'brand_id' => 'required|numeric',
             'image' => 'mimes:jpg,jpeg,png',
+            'price' => 'required|numeric'
         ];
         if ($request['name'] != $item->name || $request['brand_id'] != $item->brand_id) {
             $rules['name'] =  [
@@ -133,8 +132,10 @@ class ItemController extends Controller
         }
         $request->validate($rules);
         $item->name =  $request['name'];
+        $item->price =  $request['price'];
         $item->brand_id = $request['brand_id'];
         $item->is_active = $request['is_active'] == '1' ? 1 : 0;
+        $item->purchasable = $request['purchasable'] == '1' ? 1 : 0;
         if ($request->has('image')) {
             if (Storage::exists('public/' . $item->image)) {
                 Storage::delete('public/' . $item->image);

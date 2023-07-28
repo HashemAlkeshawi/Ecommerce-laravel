@@ -102,6 +102,9 @@
                     <button class="btn btn-danger" name="Delete" type="submit">Delete</button>
                 </form>
             </div>
+            <div class="col-auto">
+                <a href="{{URL('vendor/'.$vendor->id .'/item')}}" class="btn btn-primary" name="edit">Add Items</a>
+            </div>
         </div>
         <hr>
         @endforeach
@@ -117,6 +120,6 @@
     @endif
 
 </div>
-    @include('components\include\countryDropDown')
+@include('components\include\countryDropDown')
 
 @endsection

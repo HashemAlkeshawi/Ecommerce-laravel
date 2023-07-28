@@ -34,16 +34,14 @@ abstract class Filter
         if ($request->input('AddressCountryFilter')) {
             array_push($filters, new AddressCountryFilter());
         }
-        
-    
-        
+
         if ($request->input('ItemInventoryFilter')) {
             array_push($filters, new ItemInventoryFilter());
         }
         if ($request->input('ItemVendorFilter')) {
             array_push($filters, new ItemVendorFilter());
         }
-        
+
         if ($request->input('CountryFilter')) {
             array_push($filters, new CountryFilter());
         }
@@ -51,12 +49,14 @@ abstract class Filter
         if ($request->input('UsernameFilter')) {
             array_push($filters, new UsernameFilter());
         }
+        
+        //------------------------------//
 
-        if ($request->ActivationFilter !=null)  array_push($filters, new  ActivationFilter());
+        if ($request->ActivationFilter != null)  array_push($filters, new  ActivationFilter());
         if ($request->AdministrationFilter == 1) array_push($filters, new AdministrationFilter());
-        if( $request->ItemQuantityFilter != null) array_push($filters, new ItemQuantityFilter());
+        if ($request->ItemQuantityFilter != null) array_push($filters, new ItemQuantityFilter());
 
-
+        //------------------------------//
         foreach ($filters as $filter) {
             $filter->filter($query, $request[class_basename($filter)]);
         }

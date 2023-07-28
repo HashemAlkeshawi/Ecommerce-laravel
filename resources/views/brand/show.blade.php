@@ -69,6 +69,8 @@
                     <a href="{{URL('item/' . $item->id)}}" class="link-dark">
                         <h5 class="card-title">{{$item->name}}</h5>
                     </a>
+                    <h5 class="card-title">Price: {{$item->price}}</h5>
+
                     <h6 class="card-text">{{$item->brand->name}}</h6>
 
                 </div>

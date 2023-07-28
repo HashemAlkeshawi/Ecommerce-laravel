@@ -69,19 +69,12 @@
                 </li>
                 @if(Auth::user()->isAdmin())
                 <li class="list-group-item">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="search_is_active" name="ActivationFilter" value="1" @if(@isset($filters) && $filters->ActivationFilter == '1')checked @endif>
-                        <label class="form-check-label">Active Items Only</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="search_is_active" name="ActivationFilter" value="0" @if(@isset($filters) && $filters->ActivationFilter == '0')checked @endif>
-                        <label class="form-check-label">Inactive Items Only</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="search_is_active" name="ActivationFilter" value="" @if(@isset($filters) && $filters->ActivationFilter == '')checked @endif>
-                        <label class="form-check-label">All Items</label>
-                    </div>
-
+                    <label for="filter_by3">Activation status</label>
+                    <select class="form-control" name="ActivationFilter">
+                        <option value="1" @if(@isset($filters) && $filters->ActivationFilter == '1')selected @endif>Active Items Only</option>
+                        <option value="0" @if(@isset($filters) && $filters->ActivationFilter == '0')selected @endif>Inactive Items Only</option>
+                        <option value="" @if(@isset($filters) && $filters->ActivationFilter == '')selected @endif>All Items</option>
+                    </select>
                 </li>
                 @endif
             </ul>
@@ -105,6 +98,8 @@
                     <a href="{{URL('item/' . $item->id)}}" class="link-dark">
                         <h5 class="card-title">{{$item->name}}</h5>
                     </a>
+                    <h5 class="card-title">Price: {{$item->price}}</h5>
+
                     <h6 class="card-text">{{$item->brand->name}}</h6>
                 </div>
                 <div class="row ">

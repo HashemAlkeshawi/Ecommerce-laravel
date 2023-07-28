@@ -25,6 +25,8 @@
                     <a href="{{URL('item')}}" class="link-dark">
                         <h5 id="itemName" class="card-title"> {{$item->name}}</h5>
                     </a>
+                    <h5 class="card-title">Price: {{$item->price}}</h5>
+
                     <h5 id="brandName" class="card-title">Brand: {{$item->brand->name}}</h5>
 
                     @if(Auth::user()->isAdmin())

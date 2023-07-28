@@ -45,17 +45,20 @@ class Item extends Model
      * implementing the cart with database -> now it is by session;
      */
 
-    // public function users(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(User::class, 'user_items')->withPivot(
-    //         [
-    //             'quantity',
-    //             'created_at',
-    //             'updated_at',
-    //             'deleted_at'
-    //         ]
-    //     );
-    // }
+    /**
+     * public function users(): BelongsToMany
+     * {
+     *    return $this->belongsToMany(User::class, 'user_items')->withPivot(
+     *       [
+     *         'quantity',
+     *         'created_at',
+     *         'updated_at',
+     *         'deleted_at'
+     *      ]
+     *    );
+     * }
+     */
+
 
     public function vendors(): BelongsToMany
     {
@@ -71,5 +74,15 @@ class Item extends Model
     public function isActive(): bool
     {
         return $this->is_active == 1;
+    }
+
+
+    public function updatePurchases($quantity){
+       $this->total_purchases += $quantity;
+       $this->save();
+    }
+    public function updateSales($quantity){
+       $this->total_sales += $quantity;
+       $this->save();
     }
 }

@@ -48,6 +48,24 @@ class InventoryItemController extends Controller
         }
         return redirect("inventory/$inventory_id#items");
     }
+
+    public function storeOne($inventory_id, $request){
+        $inventory = Inventory::find($inventory_id);
+
+        $item_id =  $request['item_id'];
+        $quantity = $request['quantity'];
+
+        $item_in_relation = $inventory->items()->wherePivot('item_id', $item_id)->exists();
+        if (!$item_in_relation) {
+            $inventory->items()->attach($item_id , ['quantity' => $quantity]);
+        } else {
+            $pre_quantity = $inventory->items()->where('item_id', $item_id)->value('quantity');
+            $new_quantity = $pre_quantity + $quantity;
+            $inventory->items()->updateExistingPivot($item_id, ['quantity' => $new_quantity]);
+        }
+        Item::find($item_id)->updatePurchases($quantity);
+        
+    }
     public function destroy(Request $request)
     {
         $item_id = $request['item_id'];

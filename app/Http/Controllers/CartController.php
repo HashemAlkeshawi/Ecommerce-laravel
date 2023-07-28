@@ -68,7 +68,9 @@ class CartController extends Controller
 
         return redirect()->back();
     }
-    public function empty(Request $request)
+
+    
+    public function empty()
     {
         session()->forget("cart");
 

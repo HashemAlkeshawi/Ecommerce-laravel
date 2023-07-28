@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col-3">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top"  width="100" height="220" src="{{$item->image}}" alt="Card image cap" id="itemImage">
+                <img class="card-img-top" width="100" height="220" src="{{$item->image}}" alt="Card image cap" id="itemImage">
                 <div class="card-body">
                     <a href="{{URL('item')}}" class="link-dark">
                         <h5 id="itemName" class="card-title">{{$item->name}}</h5>
@@ -40,25 +40,31 @@
                 </div>
 
                 <div class="form-group">
-                        <label for="country">Brands:</label>
-                        <select class="form-select" aria-label="Default select example" name="brand_id" id="brand">
+                    <label for="country">Brands:</label>
+                    <select class="form-select" aria-label="Default select example" name="brand_id" id="brand">
 
-                            @foreach($brands as $brand)
-                            <option value="{{ $brand->id}}" @if($brand->id == $item->brand_id) selected @endif>{{ $brand->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                        @foreach($brands as $brand)
+                        <option value="{{ $brand->id}}" @if($brand->id == $item->brand_id) selected @endif>{{ $brand->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="form-group">
                     <label class="form-label">Image</label>
                     <input class="form-control" name="image" type="file" id="imageInput">
                 </div>
-                <br >
+                <br>
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active" @if($item->is_active ==1) checked @endif>
-                <label class="form-check-label" for="is_active">
-                    Active item?
-                </label>
-            </div>
+                    <input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active" @if($item->is_active ==1) checked @endif>
+                    <label class="form-check-label" for="is_active">
+                        Active item?
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" id="purchasable" name="purchasable" @if($item->purchasable ==1) checked @endif>
+                    <label class="form-check-label" for="is_active">
+                    purchasable item?
+                    </label>
+                </div>
                 <br>
 
                 <button class="btn btn-primary" type="submit">Save Edits</button>

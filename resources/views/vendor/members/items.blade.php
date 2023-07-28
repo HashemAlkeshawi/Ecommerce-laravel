@@ -19,7 +19,7 @@
         @endif
     </div>
 
-    <form method="GET" action="{{URL('inventory/'.$filters->inventory_id.'/item')}}" id="brand_filter_form">
+    <form method="GET" action="{{URL('vendor/'.$filters->vendor_id.'/item')}}" id="brand_filter_form">
         @csrf
         <div class="row">
             <ul class="list-group list-group-horizontal">
@@ -58,41 +58,51 @@
         </div>
         <br>
         <button class="btn btn-primary" type="submit">Apply filters</button>
-        <a href="{{URL('inventory/'.$filters->inventory_id.'/item')}}" class="btn btn-danger">Remove filters</a>
+        <a href="{{URL('vendor/'.$filters->vendor_id.'/item')}}" class="btn btn-danger">Remove filters</a>
     </form>
 
     <br>
-    <br>
-    <form method="POST" action="{{URL('inventory/'.$filters->inventory_id.'/item')}}" id="add_items_inventory">
-        @csrf
 
+
+    <form method="POST" action="{{URL('vendor/'.$filters->vendor_id.'/item')}}" id="add_items_vendor">
+        @csrf
+        <div class="form-group">
+            <label for="country">Select Inventory:</label>
+            <select class="form-select" aria-label="Default select example" name="inventory_id" id="inventory_id">
+                <option selected>Inventory..</option>
+                @foreach($inventories as $inventory)
+                <option value="{{$inventory->id}}">{{ $inventory->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Quantity from vendor: </label>
+            <input class="form-control" type="number" name="quantity" placeholder="item quantity" id="quantity">
+        </div>
+        <hr>
         <div class="row">
-            <div class="row">
-                <div class="col-auto">
-                    <h2>Select items</h2>
-                </div>
-                <div class="col-auto">
-                    <button class="btn btn-primary" type="submit">Add Items to Inventory</button>
-                </div>
+            <div class="col-auto">
+                <h2>Select items</h2>
             </div>
+            <div class="col-auto">
+                <button class="btn btn-primary" type="submit">Add Item to Vendor</button>
+            </div>
+        </div>
+        <div class="row">
             @foreach($items as $item)
             <div class="col-auto">
                 <div class="card" style="width: 18rem;">
                     <div class=" form-check">
                         <label>Select</label>
-                        <input class="form-check-input" type="checkbox" id="item_id" name="items[]" value="{{ $item->id }}">
+                        <input class="form-radio-input" type="radio" id="item_id" name="item_id" value="{{ $item->id }}">
                     </div>
-                    <div class="form-control">
-                        <label>Quantity:</label>
-                        <input class="form-input" type="number" id=" quantity_id" name="quantities[{{ $item->id }}]" value="">
-                    </div>
-                    <img class="card-img-top" width="100" height="200" src="{{$item->image}}" alt="Card image cap">
+
+                    <img class="card-img-top" width="100" height="200" src="{{asset('storage/'.$item->image)}}" alt="Card image cap">
                     <div class="card-body">
                         <a href="{{URL('item/' . $item->id)}}" class="link-dark">
                             <h5 class="card-title">{{$item->name}}</h5>
                         </a>
                         <h5 class="card-title">Price: {{$item->price}}</h5>
-
                         <h6 class="card-text">{{$item->brand->name}}</h6>
                     </div>
                     <div class="row ">

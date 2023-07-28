@@ -32,6 +32,13 @@
                 <button class="btn btn-danger" name="Delete" type="submit">Empty Cart</button>
             </form>
         </div>
+        <div class="col-auto">
+            <!-- Add route -->
+            <form method="POST" action="{{URL('purchase/')}}">
+                @csrf
+                <button class="btn btn-success" name="purchase_all" type="submit">Purchase all</button>
+            </form>
+        </div>
     </div>
     <div class="row">
         @if(isset($items))
@@ -43,19 +50,30 @@
                     <a href="{{URL('item/' . $item->id)}}" class="link-dark">
                         <h5 class="card-title">{{$item->name}}</h5>
                     </a>
+                    <h5 class="card-title">Unit Price: {{$item->price}}</h5>
+
+                    
                     <h6 class="card-text">{{$item->brand->name}}</h6>
                 </div>
-                <div class="row ">
-                    <div class="col-auto">
-                        <h6 class="form-check-label" style="margin-left: 10px;">Quantity: {{$item->quantity}}</label>
+                <div class="card-text">
+                    <h6 class="form-check-label" style="margin-left: 10px;">Quantity: {{$item->quantity}}</label>
+                    <h5 class="card-title"  style="margin-left: 10px;" >total price: {{$item->price * $item->quantity}}</h5>
 
-                    </div>
+                </div>
+                <div class="row ">
                     <div class="col-auto" style="margin-left: 10px;">
                         <form method="POST" action="{{URL('cart')}}">
                             @csrf
                             @method('DELETE')
                             <input type="hidden" value="{{$item->id}}" name="item_id">
                             <button class="btn btn-danger" name="Delete" type="submit">Remove</button>
+                        </form>
+                    </div>
+                    <div class="col-auto">
+                        <!-- Add route -->
+                        <form method="POST" action="{{URL('purchase/')}}">
+                            @csrf
+                            <button class="btn btn-success" name="purchase_all" type="submit">Purchase</button>
                         </form>
                     </div>
                 </div>
