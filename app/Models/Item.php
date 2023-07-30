@@ -22,6 +22,7 @@ class Item extends Model
 
     public function scopeFilter($query, $request)
     {
+        
         Filter::apply($query, $request);
     }
 

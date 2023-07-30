@@ -7,6 +7,7 @@ use App\Models\Inventory;
 use App\Models\Item;
 use App\Models\PurchaseOrder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PurchaseOrderController extends Controller
@@ -16,7 +17,7 @@ class PurchaseOrderController extends Controller
      */
     public function index()
     {
-        $orders = PurchaseOrder::with('item')->orderBy('created_at', 'DESC')->paginate(20);
+        $orders = PurchaseOrder::where('user_id', Auth::user()->id)->with('item')->orderBy('created_at', 'DESC')->paginate(20);
 
         return view('order.index', compact('orders'));
     }
@@ -28,11 +29,11 @@ class PurchaseOrderController extends Controller
      */
     public function store(Request $request)
     {
-
         $user_id = $request->user()->id;
         $item_id = $request['item_id'];
         $quantity = $request['quantity'];
-        if (InventoryItemController::checkAvailability($item_id, $quantity)) {
+        $item_is_purchasable = Item::find($item_id)->purchasable;
+        if (InventoryItemController::checkAvailability($item_id, $quantity) && $item_is_purchasable == 1) {
             while ($quantity > 0) {
                 $inventory_items = InventoryItemController::MaxQuantityInvenotry($item_id);
                 $inventory_id = array_key_first($inventory_items);

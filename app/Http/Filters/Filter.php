@@ -12,7 +12,6 @@ abstract class Filter
     public static function apply(Builder $query,  $filters)
     {
 
-
         $available_filters = [
             'NameFilter' => NameFilter::class,
             'IdFilter' => IdFilter::class,
@@ -27,6 +26,7 @@ abstract class Filter
             'ActivationFilter' => ActivationFilter::class,
             'ItemQuantityFilter' => ItemQuantityFilter::class,
             'MaxQuantityInventoryFilter' => MaxQuantityInventoryFilter::class,
+            'ItemsMaxPriceFilter' => ItemsMaxPriceFilter::class,
         ];
 
         foreach ($filters as $filter_name => $value) {

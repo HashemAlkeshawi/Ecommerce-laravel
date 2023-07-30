@@ -88,9 +88,7 @@
                         <button class="btn btn-danger" name="Delete" type="submit">Delete</button>
                     </form>
                 </div>
-                <div class="col-auto">
-                    <a href="{{URL('inventory/'.$inventory->id .'/item')}}" class="btn btn-primary" name="edit">Add Items</a>
-                </div>
+           
                 <!-- <div class="col-auto">
                     <a href="{{URL('inventory/'.$inventory->id .'/vendor')}}" class="btn btn-primary" name="edit">Add Vendors</a>
                 </div> -->

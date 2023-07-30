@@ -17,7 +17,7 @@ class VendorItemController extends Controller
 
         $query = Item::query();
         $items = Item::filter($request->all(), $query)->paginate(8);
-        
+
 
 
         $inventories = Inventory::select('id', 'name')->get();
@@ -33,13 +33,10 @@ class VendorItemController extends Controller
         $inventory_id = $request['inventory_id'];
         $item_id =  $request['item_id'];
         $quantity = $request['quantity'];
-        
+
         $vendor->items()->syncWithoutDetaching([$item_id => ['quantity' => $quantity]]);
 
         InventoryItemController::storeOne($inventory_id, $request);
-
-
-
 
         return redirect("inventory/$inventory_id#items");
     }

@@ -31,47 +31,50 @@ Route::get('/home', function () {
     return view('home');
 });
 
-Route::get('user/dashboard', 'App\Http\Controllers\DashboardController@index')->middleware(['auth', 'check_role']);
+Route::prefix('user/')->group(function () {
+    Route::middleware('check_autherized')->group(function () {
+        Route::get('login', 'App\Http\Controllers\LoginController@login')->name('login');
+        Route::get('create', 'App\Http\Controllers\UserController@create');
+    });
+    Route::get('dashboard', 'App\Http\Controllers\DashboardController@index')->middleware(['auth', 'check_role']);
+    Route::post('authenticate', 'App\Http\Controllers\LoginController@authenticate');
+    Route::get('logout', 'App\Http\Controllers\LoginController@logout');
+    Route::post('', 'App\Http\Controllers\UserController@store');
+    Route::resource('user', UserController::class)->except(['create', 'store'])->middleware(['auth', 'check_role']);
+});
 
-Route::get('user/login', 'App\Http\Controllers\LoginController@login')->middleware('check_autherized')->name('login');
+Route::middleware('auth')->group(function () {
 
-Route::post('user/authenticate', 'App\Http\Controllers\LoginController@authenticate');
+    Route::middleware('check_role')->group(function () {
+        Route::resource('vendor', VendorController::class);
+        Route::resource('address', AddressController::class);
+        Route::resource('brand', BrandController::class)->only(['create', 'edit', 'store', 'update', 'destroy']);
+        Route::get('brand/{brand_id}/item', 'App\Http\Controllers\ItemController@createForBrand');
+        Route::resource('item', ItemController::class)->only(['create', 'edit', 'store', 'update', 'destroy']);
+    });
+    Route::resource('brand', BrandController::class)->only(['index', 'show']);
+    Route::resource('item', ItemController::class)->only(['index', 'show']);
+});
 
-Route::get('user/create', 'App\Http\Controllers\UserController@create')->middleware('check_autherized');
+Route::middleware(['auth', 'check_role'])->group(function () {
+    Route::get('vendor/{vendor_id}/item', 'App\Http\Controllers\VendorItemController@create');
+    Route::post('vendor/{vendor_id}/item', 'App\Http\Controllers\VendorItemController@store');
+    Route::delete('vendor/{vendor_id}/item', 'App\Http\Controllers\VendorItemController@destroy');
+});
+Route::middleware('auth')->group(function () {
+    Route::get('cart', 'App\Http\Controllers\CartController@index');
+    Route::post('cart', 'App\Http\Controllers\CartController@store');
+    Route::delete('cart', 'App\Http\Controllers\CartController@destroy');
+    Route::delete('cart/empty', 'App\Http\Controllers\CartController@empty');
 
-Route::get('user/logout', 'App\Http\Controllers\LoginController@logout');
-
-Route::post('user/', 'App\Http\Controllers\UserController@store');
-
-Route::resource('user', UserController::class)->except(['create', 'store'])->middleware(['auth', 'check_role']);
-
-Route::resource('vendor', VendorController::class)->middleware(['auth', 'check_role']);
-Route::resource('address', AddressController::class)->middleware(['auth', 'check_role']);
-
-Route::resource('brand', BrandController::class)->only(['create', 'edit', 'store', 'update', 'destroy'])->middleware(['auth', 'check_role']);
-Route::resource('brand', BrandController::class)->only(['index', 'show'])->middleware('auth');
-Route::get('brand/{brand_id}/item', 'App\Http\Controllers\ItemController@createForBrand')->middleware(['auth', 'check_role']);
-
-Route::resource('item', ItemController::class)->only(['create', 'edit', 'store', 'update', 'destroy'])->middleware(['auth', 'check_role']);
-Route::resource('item', ItemController::class)->only(['index', 'show'])->middleware('auth');
+    Route::resource('purchase', PurchaseOrderController::class);
+});
 
 Route::resource('inventory', InventoryController::class)->middleware(['auth', 'check_role']);
-
-Route::get('inventory/{inventory_id}/item', 'App\Http\Controllers\InventoryItemController@create')->middleware(['auth', 'check_role']);
-Route::post('inventory/{inventory_id}/item', 'App\Http\Controllers\InventoryItemController@store')->middleware(['auth', 'check_role']);
+// Route::get('inventory/{inventory_id}/item', 'App\Http\Controllers\InventoryItemController@create')->middleware(['auth', 'check_role']);
+// Route::post('inventory/{inventory_id}/item', 'App\Http\Controllers\InventoryItemController@store')->middleware(['auth', 'check_role']);
 Route::delete('inventory/{inventory_id}/item', 'App\Http\Controllers\InventoryItemController@destroy')->middleware(['auth', 'check_role']);
 
 // Route::get('inventory/{inventory_id}/vendor', 'App\Http\Controllers\InventoryVendorController@create')->middleware(['auth', 'check_role']);
 // Route::post('inventory/{inventory_id}/vendor', 'App\Http\Controllers\InventoryVendorController@store')->middleware(['auth', 'check_role']);
 // Route::delete('inventory/{inventory_id}/vendor', 'App\Http\Controllers\InventoryVendorController@destroy')->middleware(['auth', 'check_role']);
-
-Route::get('vendor/{vendor_id}/item', 'App\Http\Controllers\VendorItemController@create')->middleware(['auth', 'check_role']);
-Route::post('vendor/{vendor_id}/item', 'App\Http\Controllers\VendorItemController@store')->middleware(['auth', 'check_role']);
-Route::delete('vendor/{vendor_id}/item', 'App\Http\Controllers\VendorItemController@destroy')->middleware(['auth', 'check_role']);
-
-Route::get('cart', 'App\Http\Controllers\CartController@index')->middleware('auth');
-Route::post('cart', 'App\Http\Controllers\CartController@store')->middleware('auth');
-Route::delete('cart', 'App\Http\Controllers\CartController@destroy')->middleware('auth');
-Route::delete('cart/empty', 'App\Http\Controllers\CartController@empty')->middleware('auth');
-
-Route::resource('purchase', PurchaseOrderController::class)->middleware('auth');

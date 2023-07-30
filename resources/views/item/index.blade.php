@@ -53,6 +53,10 @@
                     <input class="form-control" type="string" placeholder="item name" name="ItemNameFilter" @if(@isset($filters) ) value="{{$filters->ItemNameFilter}}" @endif>
                 </li>
                 <li class="list-group-item">
+                    <label for="filter_by3">Items max price</label>
+                    <input class="form-control" type="number" step="0.1" placeholder="max price" name="ItemsMaxPriceFilter" @if(@isset($filters) ) value="{{$filters->ItemsMaxPriceFilter}}" @endif>
+                </li>
+                <li class="list-group-item">
                     <label for="filter_by3">Search by Vendor name</label>
                     <input class="form-control" type="string" placeholder="vendor name" name="ItemVendorFilter" @if(@isset($filters) ) value="{{$filters->ItemVendorFilter}}" @endif>
                 </li>

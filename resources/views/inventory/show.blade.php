@@ -97,8 +97,7 @@
     <hr>
 -->  <div>
         <h2 id="items">Items of the Inventory</h2><br>
-        <a href="{{URL('inventory/'.$filters->inventory->id .'/item')}}" class="btn btn-primary">Add Item</a>
-        <br>
+   
         <br>
         <div class="row">
             @foreach($inventory->items as $item)
