@@ -3,9 +3,10 @@
 namespace App\Observers;
 
 use App\Http\Controllers\InventoryItemController;
+use App\Http\Controllers\Item\InventoryItemController as ItemInventoryItemController;
 use App\Mail\NotifyVendorQuantityDropMail;
-use App\Models\Item;
-use App\Models\PurchaseOrder;
+use App\Models\Item\Item;
+use App\Models\Item\PurchaseOrder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
@@ -17,7 +18,7 @@ class PurchaseOrderObserver
     public function created(PurchaseOrder $purchaseOrder): void
     {
         //
-        InventoryItemController::decreaseQuantity($purchaseOrder->inventory_id, $purchaseOrder->item_id, $purchaseOrder->quantity);
+        ItemInventoryItemController::decreaseQuantity($purchaseOrder->inventory_id, $purchaseOrder->item_id, $purchaseOrder->quantity);
         Item::find($purchaseOrder->item_id)->increaseSales($purchaseOrder->quantity);
 
         $available_quantity = DB::table('inventory_items')->where('item_id', $purchaseOrder->item_id)->sum('quantity');

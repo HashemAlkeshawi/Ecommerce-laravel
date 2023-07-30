@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Models\Item;
+use App\Models\Item\Item;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -42,7 +42,7 @@ class NotifyVendorQuantityDropMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'vendor.mail.quantity_drop',
+            view: 'dashboard.vendor.mail.quantity_drop',
         );
     }
 
