@@ -48,13 +48,6 @@ class Inventory extends Model
     }
 
 
-    public static function MaxQuantityInvenotry($item_id)
-    {
-        return DB::table('inventory_items')
-            ->select('inventory_id')
-            ->where('item_id', $item_id)
-            ->orderBy('quantity', 'DESC')
-            ->value('inventory_id');
-    }
+  
 
 }

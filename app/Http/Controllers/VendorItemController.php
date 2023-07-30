@@ -36,8 +36,7 @@ class VendorItemController extends Controller
         
         $vendor->items()->syncWithoutDetaching([$item_id => ['quantity' => $quantity]]);
 
-        $inventoryController = app(InventoryItemController::class);
-        $inventoryController->storeOne($inventory_id, $request);
+        InventoryItemController::storeOne($inventory_id, $request);
 
 
 

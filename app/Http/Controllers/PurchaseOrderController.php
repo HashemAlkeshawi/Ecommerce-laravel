@@ -31,52 +31,40 @@ class PurchaseOrderController extends Controller
 
         $user_id = $request->user()->id;
         $item_id = $request['item_id'];
-        $inventory_id =  Inventory::MaxQuantityInvenotry($item_id);
         $quantity = $request['quantity'];
-        $purchaseOrder = new PurchaseOrder();
+        if (InventoryItemController::checkAvailability($item_id, $quantity)) {
+            while ($quantity > 0) {
+                $inventory_items = InventoryItemController::MaxQuantityInvenotry($item_id);
+                $inventory_id = array_key_first($inventory_items);
+                $inventory_available_quantity =  $inventory_items[$inventory_id];
 
-        $purchaseOrder->user_id = $user_id;
-        $purchaseOrder->item_id = $item_id;
-        $purchaseOrder->inventory_id = $inventory_id;
-        $purchaseOrder->quantity = $quantity;
-        $purchaseOrder->status = 0;
+                $purchaseOrder = new PurchaseOrder();
 
-        $resutl = $purchaseOrder->save();
-        if ($resutl) {
-            $this->updateRelevants($item_id, $inventory_id, $quantity);
-            session()->forget("cart.$item_id");
-            return redirect('purchase')->with('messages', ['New Order Done Successfuly']);
+                $purchaseOrder->user_id = $user_id;
+                $purchaseOrder->item_id = $item_id;
+                $purchaseOrder->inventory_id = $inventory_id;
+                $purchaseOrder->status = 0;
+
+                $inventory_available_quantity < $quantity ?
+                    $purchaseOrder->quantity = $inventory_available_quantity :
+                    $purchaseOrder->quantity = $quantity;
+
+                $resutl = $purchaseOrder->save();
+
+                if ($resutl) {
+                    $quantity =  $quantity -= $purchaseOrder->quantity;
+                    if ($quantity == 0) {
+                        session()->forget("cart.$item_id");
+                        return redirect('purchase')->with('messages', ['New Order Done Successfuly']);
+                    } else {
+                        continue;
+                    }
+                }
+                return redirect()->back()->with('messages', ['Something went wrong!']);
+            }
+        } else {
+            return redirect()->back()->with('messages', ['Sorry, quantity is not available now']);
         }
-        return redirect()->back()->with('messages', ['Something went wrong!']);
-    }
-    public function storeAll(Request $request)
-    {
-
-        $user_id = $request->user()->id;
-
-        $cart = session()->get('cart');
-
-        foreach ($cart as $item) {
-
-            $inventory_id =  Inventory::MaxQuantityInvenotry($item->id);
-
-            $purchaseOrder = new PurchaseOrder();
-
-            $purchaseOrder->user_id = $user_id;
-            $purchaseOrder->item_id = $item->id;
-            $purchaseOrder->inventory_id = $inventory_id;
-            $purchaseOrder->quantity = $item->quantity;
-            $purchaseOrder->status = 0;
-
-            $resutl = $purchaseOrder->save();
-
-            if ($resutl)
-                $this->updateRelevants($item->id, $inventory_id, $item->quantity);
-        }
-
-
-        session()->forget("cart");
-        return redirect()->back();
     }
 
 
@@ -86,19 +74,5 @@ class PurchaseOrderController extends Controller
     public function destroy(PurchaseOrder $PurchaseOrder)
     {
         //
-    }
-
-
-    public function updateRelevants($item_id, $inventory_id, $quantity)
-    {
-
-        $pre_quantity = DB::table('inventory_items')->where('item_id', $item_id)->where('inventory_id', $inventory_id)->value('quantity');
-        DB::table('inventory_items')
-            ->where('item_id', $item_id)
-            ->where('inventory_id', $inventory_id)
-            ->update(['quantity' => ($pre_quantity - $quantity)]);
-
-
-        Item::find($item_id)->increaseSales($quantity);
     }
 }

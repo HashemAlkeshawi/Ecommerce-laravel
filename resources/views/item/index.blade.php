@@ -146,7 +146,7 @@
                             <div class="form-group row">
 
                                 <div class="col-sm-5">
-                                    <input class="form-control" type="number" value="" name="quantity">
+                                    <input class="form-control" type="number" min="1" value="" name="quantity">
                                 </div>
                                 <div class="col-sm-7">
 

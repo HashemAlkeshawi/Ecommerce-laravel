@@ -41,11 +41,7 @@
             </form>
         </div>
         <div class="col-auto">
-            <!-- Add route -->
-            <form method="POST" action="{{URL('purchase/all')}}">
-                @csrf
-                <button class="btn btn-success" name="purchase_all" type="submit">Purchase all</button>
-            </form>
+           <a href="purchase" class="btn btn-primary">Purchase history</a>
         </div>
     </div>
     <div class="row">

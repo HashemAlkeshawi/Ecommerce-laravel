@@ -75,4 +75,3 @@ Route::delete('cart', 'App\Http\Controllers\CartController@destroy')->middleware
 Route::delete('cart/empty', 'App\Http\Controllers\CartController@empty')->middleware('auth');
 
 Route::resource('purchase', PurchaseOrderController::class)->middleware('auth');
-Route::post('purchase/all', 'App\Http\Controllers\PurchaseOrderController@storeAll')->middleware('auth');

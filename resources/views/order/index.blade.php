@@ -8,7 +8,7 @@
 @section('content')
 <div style="margin-top: 20;" class="container">
     <div class="page-header">
-        <h1 class="header">Your Purshases History</h1>
+        <h1 class="header">Your Purchases History</h1>
     </div>
     @if (session('messages'))
         <div class="alert alert-success">
@@ -39,7 +39,8 @@
       <th scope="col">Price</th>
       <th scope="col">Total Price</th>
       <th scope="col">Order Status</th>
-      <th scope="col">Date</th>
+      <th scope="col">Order Date</th>
+      <th scope="col">Delivery Date</th>
     </tr>
   </thead>
   <tbody>
@@ -56,6 +57,7 @@
 
       @endif
       <td>{{$order->created_at}}</td>
+      <td>{{$order->updated_at == $order->created_at? '-' : $order->updated_at}}</td>
     </tr>
   @endforeach
   </tbody>

@@ -100,6 +100,9 @@
           <li class="nav-item">
             <a class="btn btn-outline" href="{{URL('/cart')}}">Cart</a>
           </li>
+          <li class="nav-item">
+            <a class="btn btn-outline" href="{{URL('/purchase')}}">History</a>
+          </li>
         </ul>
         @endif
 

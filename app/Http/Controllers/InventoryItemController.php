@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Inventory;
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class InventoryItemController extends Controller
@@ -49,7 +50,8 @@ class InventoryItemController extends Controller
         return redirect("inventory/$inventory_id#items");
     }
 
-    public function storeOne($inventory_id, $request){
+    public static function storeOne($inventory_id, $request)
+    {
         $inventory = Inventory::find($inventory_id);
 
         $item_id =  $request['item_id'];
@@ -57,14 +59,15 @@ class InventoryItemController extends Controller
 
         $item_in_relation = $inventory->items()->wherePivot('item_id', $item_id)->exists();
         if (!$item_in_relation) {
-            $inventory->items()->attach($item_id , ['quantity' => $quantity]);
+            $inventory->items()->attach($item_id, ['quantity' => $quantity]);
         } else {
             $pre_quantity = $inventory->items()->where('item_id', $item_id)->value('quantity');
             $new_quantity = $pre_quantity + $quantity;
             $inventory->items()->updateExistingPivot($item_id, ['quantity' => $new_quantity]);
         }
-        Item::find($item_id)->updatePurchases($quantity);
-        
+        $item = Item::find($item_id);
+        $item->updatePurchases($quantity);
+        $item->activate();
     }
     public function destroy(Request $request)
     {
@@ -74,5 +77,36 @@ class InventoryItemController extends Controller
             $inventory->items()->detach($item_id);
         }
         return redirect()->back();
+    }
+
+
+
+    public static function MaxQuantityInvenotry($item_id): array
+    {
+        return DB::table('inventory_items')
+            ->select('inventory_id', 'quantity')
+            ->where('item_id', $item_id)
+            ->orderBy('quantity', 'DESC')
+            ->limit(1)
+            ->pluck('quantity', 'inventory_id')
+            ->toArray();
+    }
+
+    public static function decreaseQuantity($inventory_id, $item_id, $quantity)
+    {
+
+
+        $pre_quantity = DB::table('inventory_items')->where('item_id', $item_id)->where('inventory_id', $inventory_id)->value('quantity');
+        DB::table('inventory_items')
+            ->where('item_id', $item_id)
+            ->where('inventory_id', $inventory_id)
+            ->update(['quantity' => ($pre_quantity - $quantity)]);
+    }
+
+
+    public static function checkAvailability($item_id, $quantity)
+    {
+        $available_quantity = DB::table('inventory_items')->where('item_id', $item_id)->sum('quantity');
+        return ($available_quantity - $quantity) > -1;
     }
 }
