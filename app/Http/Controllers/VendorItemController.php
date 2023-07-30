@@ -13,7 +13,7 @@ class VendorItemController extends Controller
 {
     //
     public function create($vendor_id, Request $request)
-    {
+    { 
 
         $query = Item::query();
         $items = Item::filter($request->all(), $query)->paginate(8);

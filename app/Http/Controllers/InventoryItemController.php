@@ -38,8 +38,10 @@ class InventoryItemController extends Controller
         if ($item_id != null) {
             $inventory = Inventory::find($request['inventory_id']);
             $quantity = $inventory->items()->where('item_id', $item_id)->value('quantity');
-            Item::find($item_id)->decreaseTotalPurchases($quantity);
-            $inventory->items()->detach($item_id);
+
+            // Item::find($item_id)->decreaseTotalPurchases($quantity);
+            // $inventory->items()->detach($item_id);
+            
         }
         return redirect()->back();
     }
