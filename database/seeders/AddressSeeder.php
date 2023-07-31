@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Address;
-use App\Models\d_user;
+use App\Models\Address\Address;
+use App\Models\Dashboard\Vendor;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Vendor;
 
 class AddressSeeder extends Seeder
 {

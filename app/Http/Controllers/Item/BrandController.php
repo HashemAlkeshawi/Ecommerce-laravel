@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Item;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Item\storeBrandRequest;
 use App\Http\traits\uploadFile;
 use App\Models\Item\Brand;
 use App\Models\Item\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use storeBrandRequest;
 
 class BrandController extends Controller
 {

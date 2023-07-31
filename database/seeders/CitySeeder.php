@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\City;
-use App\Models\Country;
+use App\Models\Address\City;
+use App\Models\Address\Country;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 

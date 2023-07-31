@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Vendor;
+use App\Models\Dashboard\Vendor;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,15 +16,8 @@ class VendorSeeder extends Seeder
         //
         {
             $vendor = new Vendor();
-            /***
-                id bigInt [primary key]
-                email varchar
-                first_name varchar
-                last_name varchar
-                is_active tinyInteger
-                phone varchar
-             */
-            $vendor->email = 'vendorEmail@gmail.com';
+      
+            $vendor->email = 'hashemalkeshawi@gmail.com';
             $vendor->first_name = 'MR.';
             $vendor->last_name = 'Vendor';
             $vendor->is_active = '1';

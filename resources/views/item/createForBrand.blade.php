@@ -38,13 +38,6 @@
                 <input class="form-control" name="image" type="file">
             </div><br>
 
-
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active">
-                <label class="form-check-label" for="is_active">
-                    Active Item?
-                </label>
-            </div>
             <br>
 
             <button class="btn btn-primary" type="submit">Save</button>

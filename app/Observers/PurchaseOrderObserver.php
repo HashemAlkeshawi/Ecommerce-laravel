@@ -35,7 +35,8 @@ class PurchaseOrderObserver
              */
 
             foreach ($item_vendors as $item_vendor) {
-                Mail::to($item_vendor)->send(new NotifyVendorQuantityDropMail("$item_vendor->first_name $item_vendor->last_name", $item));
+                if ($item_vendor->is_active)
+                    Mail::to($item_vendor)->queue(new NotifyVendorQuantityDropMail("$item_vendor->first_name $item_vendor->last_name", $item));
             }
         }
     }

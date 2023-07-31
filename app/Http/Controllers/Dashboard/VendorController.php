@@ -47,7 +47,7 @@ class VendorController extends Controller
 
         $vendor->save();
 
-        return redirect('dashboard.vendor');
+        return redirect('vendor');
     }
 
     /**

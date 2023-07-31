@@ -20,18 +20,24 @@ class VendorItemController extends Controller
         $inventories = Inventory::select('id', 'name')->get();
         $brands = Brand::select('id', 'name')->get();
 
-        return view('vendor.members.items', compact('items', 'brands', 'inventories'))->with('filters', $request);
+        return view('dashboard.vendor.members.items', compact('items', 'brands', 'inventories'))->with('filters', $request);
     }
 
     public function store($vendor_id, storeItemFomVendorRequest $request)
     {
-
         $vendor = Vendor::find($vendor_id);
         $inventory_id = $request['inventory_id'];
         $item_id =  $request['item_id'];
         $quantity = $request['quantity'];
 
-        $vendor->items()->syncWithoutDetaching([$item_id => ['quantity' => $quantity]]);
+        $item_in_relation = $vendor->items()->wherePivot('item_id', $item_id)->exists();
+        if (!$item_in_relation) {
+            $vendor->items()->attach($item_id, ['quantity' => $quantity]);
+        } else {
+            $pre_quantity = $vendor->items()->where('item_id', $item_id)->value('quantity');
+            $new_quantity = $pre_quantity + $quantity;
+            $vendor->items()->updateExistingPivot($item_id, ['quantity' => $new_quantity]);
+        }
 
         InventoryItemController::storeOne($inventory_id, $request);
 

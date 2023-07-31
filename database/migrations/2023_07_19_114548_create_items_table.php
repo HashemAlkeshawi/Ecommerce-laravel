@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('image');
-            $table->foreignId('brand_id')->constrained('brands');
+            $table->foreignId('brand_id')->constrained('brands')->onDelete('cascade');
             $table->tinyInteger('is_active')->default(0);
             $table->softDeletes();
             $table->timestamps();
