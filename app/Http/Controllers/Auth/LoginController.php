@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserAuthLogEvent;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,10 +18,12 @@ class LoginController extends Controller
                 'email' => $request['email'],
                 'password' => $request['password']
             ],
-            $request['remember_me'] =="1"
+            $request['remember_me'] == "1"
         );
         if ($authenticated) {
+            // Here to fire the event...
             $request->session()->regenerate();
+            event(new UserAuthLogEvent(Auth::user()));
 
             return redirect('/home');
         }

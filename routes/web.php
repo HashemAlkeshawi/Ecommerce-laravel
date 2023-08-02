@@ -40,8 +40,8 @@ Route::prefix('user/')->group(function () {
     Route::post('authenticate', 'App\Http\Controllers\Auth\LoginController@authenticate');
     Route::get('logout', 'App\Http\Controllers\Auth\LoginController@logout');
     Route::post('', 'App\Http\Controllers\Dashboard\UserController@store');
-    Route::resource('', UserController::class)->except(['create', 'store'])->middleware(['auth', 'check_role']);
 });
+Route::resource('user', UserController::class)->except(['create', 'store'])->middleware(['auth', 'check_role']);
 
 Route::middleware('auth')->group(function () {
 

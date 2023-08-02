@@ -8,6 +8,7 @@ use App\Models\Dashboard\Inventory;
 use App\Models\Dashboard\Vendor;
 use App\Models\Item\Brand;
 use App\Models\Item\Item;
+use Illuminate\Console\Scheduling\Event;
 use Illuminate\Http\Request;
 
 class VendorItemController extends Controller
@@ -38,6 +39,7 @@ class VendorItemController extends Controller
             $new_quantity = $pre_quantity + $quantity;
             $vendor->items()->updateExistingPivot($item_id, ['quantity' => $new_quantity]);
         }
+        // DB
 
         InventoryItemController::storeOne($inventory_id, $request);
 

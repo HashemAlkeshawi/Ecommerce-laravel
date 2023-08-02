@@ -111,8 +111,8 @@
           <a class="btn btn-outline-success my-2 my-sm-0" href="{{URL('user/logout')}}">Log Out</a>
         </li>
       @else
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
+      <ul class="navbar-nav">
+        <li class="nav-item me-2">
           <a class="btn btn-outline-success my-2 my-sm-0" href="{{URL('user/login')}}">Log in</a>
         </li>
         <li class="nav-item">

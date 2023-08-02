@@ -2,11 +2,16 @@
 
 namespace App\Providers;
 
+use App\Events\UserAuthLogEvent;
+use App\Listeners\LogUserAuth;
 use App\Models\Item\PurchaseOrder;
 use App\Observers\PurchaseOrderObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use Illuminate\Console\Scheduling\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+
+use function Illuminate\Events\queueable;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -19,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        UserAuthLogEvent::class => [
+            LogUserAuth::class
+        ]
     ];
 
 
