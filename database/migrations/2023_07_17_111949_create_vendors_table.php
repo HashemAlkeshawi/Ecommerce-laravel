@@ -11,19 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        /***
-         * Table vendors {
-            id bigInt [primary key]
-            email varchar
-            first_name varchar
-            last_name varchar
-            is_active tinyInteger
-            phone varchar
-            created_at timestamp
-            updated_at timestamp
-}
-
-         */
+    
         Schema::create('vendors', function (Blueprint $table) {
             $table->id();
             $table->string('email');
