@@ -5,17 +5,20 @@ namespace App\Models\Dashboard;
 use App\Http\Filters\Filter;
 use App\Models\Address\Address;
 use App\Models\Item\PurchaseOrder;
+use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements CanResetPassword
 {
     use SoftDeletes;
     use HasFactory;
+    use Notifiable;
 
 
     public function scopeFilter(Builder $query,   $request)

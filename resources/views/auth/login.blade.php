@@ -36,16 +36,20 @@
             </div>
 
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="1" id="remember_me" name="remember_me" >
+                <input class="form-check-input" type="checkbox" value="1" id="remember_me" name="remember_me">
                 <label class="form-check-label" for="remember_me">
-                Remember Me
+                    Remember Me
                 </label>
             </div>
- 
+            <br>
+            <a href="{{URL('/user/index')}}"> <span>Forget password?</span></a>
+
 
             <br><br>
             <button class="btn btn-primary" type="submit">Log In</button>
-            <a href="{{URL('/user/create')}}"> <span class="btn btn-primary" >Sign Up</span></a>
+
+            <a href="{{URL('/user/create')}}"> <span class="btn btn-primary">Sign Up</span></a>
+
         </form>
     </div>
 </div>

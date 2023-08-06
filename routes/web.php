@@ -35,6 +35,9 @@ Route::prefix('user/')->group(function () {
     Route::middleware('check_autherized')->group(function () {
         Route::get('login', 'App\Http\Controllers\Auth\LoginController@login')->name('login');
         Route::get('create', 'App\Http\Controllers\Dashboard\UserController@create');
+        Route::get('reset_password', 'App\Http\Controllers\Auth\ResetPasswordController@index');
+        Route::post('set_reset_code', 'App\Http\Controllers\Auth\ResetPasswordController@setResetCode');
+        Route::post('reset_password', 'App\Http\Controllers\Auth\ResetPasswordController@resetPassword');
     });
     Route::get('dashboard', 'App\Http\Controllers\Dashboard\DashboardController@index')->middleware(['auth', 'check_role']);
     Route::post('authenticate', 'App\Http\Controllers\Auth\LoginController@authenticate');
