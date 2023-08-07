@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\resetPasswordRequest;
 use App\Mail\ResetPasswordEmail;
 use Illuminate\Http\Request;
 use App\Models\Dashboard\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 
 class ResetPasswordController extends Controller
 {
@@ -40,10 +43,19 @@ class ResetPasswordController extends Controller
     {
         $reset_code = $request->reset_code;
         $user_reset_code = DB::table('password_reset_codes')->where('user_id', $request->user_id)->where('reset_code', $reset_code)->first();
-        // $user_reset_code->created_at 
         if ($user_reset_code) {
+            return view("auth.update_password", compact('user_reset_code'));
         } else {
-            return redirect()->back()->with('messages', ['The code you provided is not correct']);
+            return view('auth.enter_code')->with('messages', ['The code you provided is not correct'])->with('user_id', $request->user_id);
         }
+    }
+    
+    public function updatePassword(resetPasswordRequest $request)
+    {
+        $user = User::find($request->user_id);
+        $user->password = Hash::make($request->password);
+        $user->save();
+        DB::table('password_reset_codes')->where('user_id', $request->user_id)->delete();
+        return redirect('user/login');
     }
 }

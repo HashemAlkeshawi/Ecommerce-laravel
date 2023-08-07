@@ -4,7 +4,7 @@ namespace App\Http\Requests\Dashboard;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class storeUserRequest extends FormRequest
+class resetPasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,14 +22,9 @@ class storeUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-         
-            'username' => 'required|unique:users|min:5',
-            'first_name' => 'required|min:3|max:15',
-            'last_name' => 'required|min:3|max:15',
-            'is_admin' => 'in:0,1',
-            'is_active' => 'in:0,1',
             'password' => ['required', 'min:8', 'regex:/^(?=.*[a-z])(?=.*[A-Z]).(?=.*[\W_]).{9,}$/'],
             'check_password' => 'required|same:password'
         ];
     }
+    
 }

@@ -30,7 +30,7 @@
         <div class="page-header">
             <h1 class="header">Enter Reset Code</h1>
         </div>
-        <p>We have send you a five digits code, check your mail box...</p>
+        <p>We have sent you a five digits code, check your mail box...</p>
         <form method="POST" action="{{URL('user/reset_password')}}">
             @csrf
 

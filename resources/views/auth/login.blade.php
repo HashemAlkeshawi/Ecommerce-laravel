@@ -42,7 +42,7 @@
                 </label>
             </div>
             <br>
-            <a href="{{URL('/user/index')}}"> <span>Forget password?</span></a>
+            <a href="{{URL('/user/reset_password')}}"> <span>Forget password?</span></a>
 
 
             <br><br>

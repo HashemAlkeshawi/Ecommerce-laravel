@@ -38,6 +38,7 @@ Route::prefix('user/')->group(function () {
         Route::get('reset_password', 'App\Http\Controllers\Auth\ResetPasswordController@index');
         Route::post('set_reset_code', 'App\Http\Controllers\Auth\ResetPasswordController@setResetCode');
         Route::post('reset_password', 'App\Http\Controllers\Auth\ResetPasswordController@resetPassword');
+        Route::post('update_password', 'App\Http\Controllers\Auth\ResetPasswordController@updatePassword');
     });
     Route::get('dashboard', 'App\Http\Controllers\Dashboard\DashboardController@index')->middleware(['auth', 'check_role']);
     Route::post('authenticate', 'App\Http\Controllers\Auth\LoginController@authenticate');
