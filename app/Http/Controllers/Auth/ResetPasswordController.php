@@ -49,7 +49,7 @@ class ResetPasswordController extends Controller
             return view('auth.enter_code')->with('messages', ['The code you provided is not correct'])->with('user_id', $request->user_id);
         }
     }
-    
+
     public function updatePassword(resetPasswordRequest $request)
     {
         $user = User::find($request->user_id);

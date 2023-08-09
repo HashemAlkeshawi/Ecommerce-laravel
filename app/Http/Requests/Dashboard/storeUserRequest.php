@@ -22,13 +22,13 @@ class storeUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-         
+            'email' => 'required|unique:users',
             'username' => 'required|unique:users|min:5',
             'first_name' => 'required|min:3|max:15',
             'last_name' => 'required|min:3|max:15',
             'is_admin' => 'in:0,1',
             'is_active' => 'in:0,1',
-            'password' => ['required', 'min:8', 'regex:/^(?=.*[a-z])(?=.*[A-Z]).(?=.*[\W_]).{9,}$/'],
+            'password' => 'required|min:8',
             'check_password' => 'required|same:password'
         ];
     }

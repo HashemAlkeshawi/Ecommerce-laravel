@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApiControllers\Auth\ApiLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +17,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    return  $request->user();
 });
+
+Route::prefix('user/')->group(function () {
+    Route::post('register', [ApiLoginController::class,'store']);
+    Route::post('login', 'App\Http\Controllers\ApiControllers\Auth\ApiLoginController@login');
+
+    // Route::get('logout', 'App\Http\Controllers\ApiControllers\Auth\ApiLoginController@logout');
+});
+
+Route::get('unauthenticated', function (Request $request) {
+    return    response()->json(['message' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
+})->name('unauthenticated');
