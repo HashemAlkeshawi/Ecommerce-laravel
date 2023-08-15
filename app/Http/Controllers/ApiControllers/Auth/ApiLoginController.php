@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\APiControllers\Auth;
 
-use App\Events\UserAuthLogEvent;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,22 +14,6 @@ use Illuminate\Support\Facades\Hash;
 
 class ApiLoginController extends Controller
 {
-    public function store(storeUserRequest $request)
-    {
-        // $request->validated();
-        $user = new User;
-        $user->username = $request['username'];
-        $user->email = $request['email'];
-        $user->first_name = $request['first_name'];
-        $user->last_name = $request['last_name'];
-        $user->is_admin = $request['is_admin'] == '1' ? 1 : 0;
-        $user->password =  Hash::make($request['password']);
-
-        $user->save();
-
-        return response()->json($user);
-        // return redirect('api/user/login');
-    }
 
     public function login(AuthenticationRequest $request)
     {
@@ -45,7 +28,11 @@ class ApiLoginController extends Controller
             $request['remember_me'] == "1"
         );
         $user = User::where('email', $request['email'])->first();
-        $token = $user->createToken('token-name', ['*'], Carbon::now()->addMinutes())->plainTextToken;
+
+        $token = $user->createToken('Access_Token')->accessToken;
+
+
+        // $refresh_token = $user->createToken('token-refresh_token', ['refresh'], Carbon::now()->addMinutes(config('sanctum.refresh_token_expiration')))->plainTextToken;
         // return $token;
         if ($authenticated) {
 
@@ -54,6 +41,10 @@ class ApiLoginController extends Controller
         return response()->json(['message' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
     }
 
+
+    public function refresh(Request $request)
+    {
+    }
 
     // Log out 
     public function logout(Request $request)

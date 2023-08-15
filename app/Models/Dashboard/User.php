@@ -11,9 +11,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable implements CanResetPassword
 {
@@ -28,6 +29,14 @@ class User extends Authenticatable implements CanResetPassword
 
         Filter::apply($query, $request);
     }
+
+    protected function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->first_name. ' '. $this->last_name ,
+        );
+    }
+
     public function address(): MorphOne
     {
         return $this->morphOne(Address::class, 'addressable');
@@ -51,11 +60,14 @@ class User extends Authenticatable implements CanResetPassword
     }
 
 
+
     function isAdmin(): bool
     {
         return $this->is_admin == 1;
     }
 
+    protected $hidden = ['password'];
 
-    // protected $fillable = ['username', 'email', 'first_name', 'last_name', 'is_admin', 'password', 'is_active'];
+
+    protected $fillable = ['username', 'email', 'first_name', 'last_name', 'is_admin', 'password', 'is_active'];
 }

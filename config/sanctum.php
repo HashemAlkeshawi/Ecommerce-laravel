@@ -46,7 +46,8 @@ return [
     |
     */
 
-    'expiration' => 60,
+    'token_expiration' => 60,
+    'refresh_token_expiration' => 60,
 
     /*
     |--------------------------------------------------------------------------

@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiControllers\Auth\ApiLoginController;
+use App\Http\Controllers\ApiControllers\Dashboard\ApiUserController;
+use App\Http\Resources\UserResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,16 +18,16 @@ use App\Http\Controllers\ApiControllers\Auth\ApiLoginController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return  $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return  new UserResource($request->user());
+// });
 
 Route::prefix('user/')->group(function () {
-    Route::post('register', [ApiLoginController::class,'store']);
+    Route::post('register', [ApiUserController::class,'store']);
     Route::post('login', 'App\Http\Controllers\ApiControllers\Auth\ApiLoginController@login');
-
     // Route::get('logout', 'App\Http\Controllers\ApiControllers\Auth\ApiLoginController@logout');
 });
+Route::resource('user', ApiUserController::class)->except(['create', 'store'])->middleware(['auth:api', 'check_role']);
 
 Route::get('unauthenticated', function (Request $request) {
     return    response()->json(['message' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
