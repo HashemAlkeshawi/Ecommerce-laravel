@@ -22,7 +22,7 @@ class UserResource extends JsonResource
             'fullname' => $this->full_name,
             'is_active' => $this->is_active,
             'is_admin' => $this->is_admin,
-            'address' => $this->address,
+            'address' => new AddressResource( $this->address),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

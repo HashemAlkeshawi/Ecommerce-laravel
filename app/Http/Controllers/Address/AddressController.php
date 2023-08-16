@@ -32,7 +32,7 @@ class AddressController extends Controller
         $addressable = $this->addressable_type($addressable_type, $addressable_id);
         $addressable->addressable_type = $addressable_type;
         $countries = Country::with('City')->get();
-        return view('address.create')->with('addressable', $addressable)->with('countries', $countries);
+        return view('dashboard.address.create')->with('addressable', $addressable)->with('countries', $countries);
     }
 
 
@@ -77,7 +77,7 @@ class AddressController extends Controller
     public function edit(Address $address)
     {
         $countries = country::with('City')->get();
-        return view('address.edit')->with('address', $address)->with('countries', $countries);
+        return view('dashboard.address.edit')->with('address', $address)->with('countries', $countries);
     }
 
     /**
