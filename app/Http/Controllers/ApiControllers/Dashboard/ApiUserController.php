@@ -6,11 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\storeUserRequest;
 use App\Http\Requests\FiltersRequest;
 use App\Http\Resources\UserResource;
-use App\Models\Address\Country;
 use App\Models\Dashboard\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class ApiUserController extends Controller
@@ -46,7 +45,7 @@ class ApiUserController extends Controller
 
     public function show(User $user)
     {
-        return  new UserResource($user);
+        return  Response::sendWithMessage(new UserResource($user), 'message');
     }
 
 
