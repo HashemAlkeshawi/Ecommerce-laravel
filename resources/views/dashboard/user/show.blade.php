@@ -64,6 +64,10 @@
                     @method('DELETE')
                     <button class="btn btn-danger" name="Delete" type="submit">Delete</button>
                 </form>
+
+            </div>
+            <div class="col-auto">
+                <a href="{{URL('user/'.$user->id .'/email')}}" class="btn btn-primary" name="edit">Send Email</a>
             </div>
         </div>
     </ul>

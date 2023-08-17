@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\sendEmailRequest;
 use App\Http\Requests\Dashboard\storeUserRequest;
 use App\Http\Requests\FiltersRequest;
 use App\Models\Address\Country;
@@ -99,5 +100,33 @@ class UserController extends Controller
     {
         $user->delete();
         return redirect('/user');
+    }
+
+
+
+    public function createEmail($user_id)
+    {
+        $user = User::findOrFail($user_id);
+        $user_name = "$user->first_name $user->last_name";
+        return view('dashboard.user.create_email', compact('user_name', 'user_id'));
+    }
+
+    public function email(Request $request)
+    {
+        $user = User::findOrFail($request['user_id']);
+        $type = $request['type'];
+        switch ($type) {
+            case 0:
+                sendEmailtoUser($user);
+                break;
+            case 1:
+                $rules = [
+                    'subject' => 'required',
+                    'content' => 'required'
+                ];
+                $request->validate($rules);
+                sendCustomEmailtoUser($user, $request['subject'], $request['content']);
+                break;
+        }
     }
 }

@@ -44,6 +44,8 @@ Route::prefix('user/')->group(function () {
     Route::post('authenticate', 'App\Http\Controllers\Auth\LoginController@authenticate');
     Route::get('logout', 'App\Http\Controllers\Auth\LoginController@logout');
     Route::post('', 'App\Http\Controllers\Dashboard\UserController@store');
+    Route::get('{user_id}/email', 'App\Http\Controllers\Dashboard\UserController@createEmail');
+    Route::post('/email', 'App\Http\Controllers\Dashboard\UserController@email');
 });
 Route::resource('user', UserController::class)->except(['create', 'store'])->middleware(['auth', 'check_role']);
 
