@@ -3,7 +3,7 @@
 namespace Modules\User\app\http\Controllers;
 
 use App\Http\Controllers\Controller;
-use  storeUserRequest;
+use Modules\User\App\Http\Requests\storeUserRequest;
 use App\Http\Requests\FiltersRequest;
 use App\Models\Address\Country;
 use Modules\User\App\Models\User;
