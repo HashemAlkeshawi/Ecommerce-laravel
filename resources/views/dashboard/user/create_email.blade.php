@@ -6,6 +6,15 @@
 
 @section('content')
 <div style="margin-top: 20;" class="container">
+@if (session('messages'))
+  <div class="alert alert-success">
+    <ul>
+      @foreach (session('messages') as $message)
+      <li>{{ $message }}</li>
+      @endforeach
+    </ul>
+  </div>
+  @endif
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>

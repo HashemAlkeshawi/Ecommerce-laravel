@@ -5,7 +5,7 @@ use App\Jobs\sendEmailJob;
 
 function sendEmailtoUser($user)
 {
-    sendEmailJob::dispatch($user);
+    sendEmailJob::dispatch($user);//->onQueue('emails');
 }
 function sendCustomEmailtoUser($user, $subject, $content)
 {

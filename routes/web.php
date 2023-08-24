@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\Address\AddressController;
 use App\Http\Controllers\Dashboard\InventoryController;
-use App\Http\Controllers\Dashboard\UserController;
+// use App\Http\Controllers\Dashboard\UserController;
+
 use App\Http\Controllers\Dashboard\VendorController;
 use App\Http\Controllers\Item\BrandController;
 use App\Http\Controllers\Item\ItemController;
@@ -31,23 +32,6 @@ Route::get('/home', function () {
     return view('home');
 });
 
-Route::prefix('user/')->group(function () {
-    Route::middleware('check_autherized')->group(function () {
-        Route::get('login', 'App\Http\Controllers\Auth\LoginController@login')->name('login');
-        Route::get('create', 'App\Http\Controllers\Dashboard\UserController@create');
-        Route::get('reset_password', 'App\Http\Controllers\Auth\ResetPasswordController@index');
-        Route::post('set_reset_code', 'App\Http\Controllers\Auth\ResetPasswordController@setResetCode');
-        Route::post('reset_password', 'App\Http\Controllers\Auth\ResetPasswordController@resetPassword');
-        Route::post('update_password', 'App\Http\Controllers\Auth\ResetPasswordController@updatePassword');
-    });
-    Route::get('dashboard', 'App\Http\Controllers\Dashboard\DashboardController@index')->middleware(['auth', 'check_role']);
-    Route::post('authenticate', 'App\Http\Controllers\Auth\LoginController@authenticate');
-    Route::get('logout', 'App\Http\Controllers\Auth\LoginController@logout');
-    Route::post('', 'App\Http\Controllers\Dashboard\UserController@store');
-    Route::get('{user_id}/email', 'App\Http\Controllers\Dashboard\UserController@createEmail');
-    Route::post('/email', 'App\Http\Controllers\Dashboard\UserController@email');
-});
-Route::resource('user', UserController::class)->except(['create', 'store'])->middleware(['auth', 'check_role']);
 
 Route::middleware('auth')->group(function () {
 

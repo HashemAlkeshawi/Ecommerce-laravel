@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace Modules\User\app\http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\sendEmailRequest;
-use App\Http\Requests\Dashboard\storeUserRequest;
+use  storeUserRequest;
 use App\Http\Requests\FiltersRequest;
 use App\Models\Address\Country;
-use App\Models\Dashboard\User;
+use Modules\User\App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -128,5 +127,6 @@ class UserController extends Controller
                 sendCustomEmailtoUser($user, $request['subject'], $request['content']);
                 break;
         }
+        return redirect()->back()->with('messages', ["Email send successfully!"]);
     }
 }

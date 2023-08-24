@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\APiControllers\Auth;
+namespace app\Http\Controllers\APiControllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AuthenticationRequest;
-use App\Http\Requests\Dashboard\storeUserRequest;
-use App\Models\Dashboard\User;
-use Carbon\Carbon;
+use Modules\User\App\Models\User;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
 
 class ApiLoginController extends Controller
 {

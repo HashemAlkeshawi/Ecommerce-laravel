@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\storeAddressRequest;
 use App\Models\Address\Address;
 use App\Models\Address\Country;
-use App\Models\Dashboard\User;
+// use App\Models\Dashboard\User;
+use Modules\User\App\Models\User;
+
 use App\Models\Dashboard\Vendor;
 use Illuminate\Http\Request;
 

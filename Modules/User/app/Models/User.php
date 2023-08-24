@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Dashboard;
+namespace Modules\User\app\Models;
 
 use App\Http\Filters\Filter;
 use App\Models\Address\Address;
@@ -33,7 +33,7 @@ class User extends Authenticatable implements CanResetPassword
     protected function fullName(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->first_name. ' '. $this->last_name ,
+            get: fn () => $this->first_name . ' ' . $this->last_name,
         );
     }
 
